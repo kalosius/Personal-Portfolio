@@ -830,7 +830,7 @@
                         <a href="https://www.instagram.com/aloisius_kasozi/" target="_blank" rel="noreferrer" class=""><i class="fa-brands fa-instagram"></i></a>
                         <a href="tel:+256704978132" title="tel:+256704978132" class=""><i class="fab fa-whatsapp"></i></a>
                     </div> 
-                    <button
+                    <button id="learn-more-btn" type="button"
                         style=" font-size: 18px; line-height: 24px; color: white; background-color: #F8CB2E; border-radius: 50px; border: 1px solid #F8CB2E; padding: 10px; padding-left: 30px; padding-right: 30px;">Learn More</button>
                 </div>
                 <div class="main-image">
@@ -853,7 +853,7 @@
                     <p style="color: rgb(57, 54, 71); font-size: 18px; ">I am a web developer with four years of hands-on experience building responsive websites. From planning and collaboration to design and deployment, I focus on delivering solutions that are functional, fast, and visually engaging.
                     </p>
                     
-                    <button 
+                    <button id="work-with-me-btn" type="button"
                         style=" font-size: 18px; line-height: 24px; color: white; background-color: #F8CB2E; border-radius: 50px; border: 1px solid #F8CB2E; padding: 10px; padding-left: 30px; padding-right: 30px;">Work With Me</button>
                 </div>
             </div>
@@ -1305,10 +1305,21 @@
             });
         }());
 
-        // Say Hello modal
+        // Learn More — scroll to About section
+        (function () {
+            var btn = document.getElementById("learn-more-btn");
+            if (btn) {
+                btn.addEventListener("click", function () {
+                    document.getElementById("about").scrollIntoView({ behavior: "smooth" });
+                });
+            }
+        }());
+
+        // Say Hello modal (also used by Work With Me)
         (function () {
             var overlay = document.getElementById("hello-modal");
             var openBtn = document.getElementById("say-hello-btn");
+            var workBtn = document.getElementById("work-with-me-btn");
             var closeBtn = document.getElementById("modal-close-btn");
 
             function openModal() {
@@ -1327,6 +1338,7 @@
             var mailtoTrigger = document.getElementById("mailto-trigger");
 
             openBtn.addEventListener("click", openModal);
+            if (workBtn) { workBtn.addEventListener("click", openModal); }
             closeBtn.addEventListener("click", closeModal);
             emailBtn.addEventListener("click", function () {
                 mailtoTrigger.click();
