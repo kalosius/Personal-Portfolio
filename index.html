@@ -514,6 +514,279 @@
             }
         }
 
+        /* ── Say Hello Modal ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 40, 46, 0.55);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2.8rem 2.4rem 2.4rem;
+            width: min(94%, 440px);
+            text-align: center;
+            box-shadow: 0 32px 80px rgba(12, 95, 109, 0.22);
+            transform: translateY(28px) scale(0.97);
+            transition: transform 0.38s cubic-bezier(0.34, 1.42, 0.64, 1), opacity 0.35s ease;
+            opacity: 0;
+        }
+
+        .modal-overlay.open .modal-box {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-box h3 {
+            font-family: var(--font-display);
+            font-size: 1.55rem;
+            color: var(--color-heading);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .modal-box p {
+            font-size: 0.97rem;
+            color: #6b6880;
+            margin-bottom: 2rem;
+            max-width: 100%;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.75rem 1.6rem;
+            border-radius: 50px;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid transparent;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            cursor: pointer;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(12, 95, 109, 0.18);
+        }
+
+        .modal-btn.whatsapp {
+            background: #25D366;
+            color: #ffffff;
+        }
+
+        .modal-btn.whatsapp:hover {
+            background: #1ebe5d;
+        }
+
+        .modal-btn.email {
+            background: var(--color-accent);
+            color: #1a1a2e;
+        }
+
+        .modal-btn.email:hover {
+            background: #e6b800;
+        }
+
+        .modal-close {
+            margin-top: 1.6rem;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--color-heading);
+            background: #f0f4f5;
+        }
+
+        .modal-email-hint {
+            margin-top: 1.2rem;
+            margin-bottom: 0;
+            font-size: 0.82rem !important;
+            color: #aaa;
+            letter-spacing: 0.01em;
+            user-select: all;
+        }
+
+        /* Project detail modal */
+        .project-modal-overlay {
+            align-items: flex-start;
+            padding: 2rem 1rem;
+            overflow-y: auto;
+        }
+
+        .project-modal-box {
+            width: min(96%, 800px);
+            text-align: left;
+            padding: 2rem 2rem 2.4rem;
+            position: relative;
+        }
+
+        .project-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            margin-top: 0;
+        }
+
+        .project-modal-box h3 {
+            text-align: left;
+            margin-bottom: 1.2rem;
+        }
+
+        .gallery-area {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin: 0 0 0.8rem;
+        }
+
+        .gallery-main {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f0f4f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: auto;
+            max-height: 420px;
+            object-fit: contain;
+            display: block;
+            border-radius: 10px;
+            transition: opacity 0.2s ease;
+        }
+
+        .gallery-nav {
+            background: #006E7F;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            font-size: 1.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background 0.2s ease, transform 0.2s ease;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .gallery-nav:hover {
+            background: #F8CB2E;
+            color: #1a1a2e;
+            transform: scale(1.1);
+        }
+
+        .gallery-thumbs {
+            display: flex;
+            gap: 0.55rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.4rem;
+        }
+
+        .gallery-thumb {
+            width: 76px;
+            height: 54px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0.65;
+            transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .gallery-thumb:hover {
+            opacity: 1;
+            transform: scale(1.06);
+        }
+
+        .gallery-thumb.active {
+            border-color: #006E7F;
+            opacity: 1;
+        }
+
+        .project-modal-desc p {
+            font-size: 0.97rem;
+            color: #393647;
+            line-height: 1.7;
+            margin-bottom: 0.9rem;
+        }
+
+        .project-feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .project-feature-list li {
+            padding: 0.28rem 0 0.28rem 1.5rem;
+            position: relative;
+            font-size: 0.93rem;
+            color: #393647;
+        }
+
+        .project-feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #006E7F;
+            font-weight: 700;
+        }
+
+        .read-more-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: var(--font-body);
+            font-size: inherit;
+            font-weight: 700;
+            color: #006E7F;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .read-more-btn:hover {
+            text-decoration: underline;
+        }
+
 
     </style>
 </head>
@@ -599,10 +872,10 @@
             <div id="projects">
                 <!-- project one -->
                 <div class="project-tile">
-                    <div><img class="project-img" src="project-one.png" alt="Kampala Parents School System"></div>
+                    <div><img class="project-img" src="images%20of%20portffolio/kampalaparents/image.png" alt="Kampala Parents School System"></div>
                     <h3>Kampala Parents School System</h3>
                     <p>A school management platform built to improve communication, student record handling, and day-to-day academic administration for parents, teachers, and school staff.</p>
-                    <p class="read-more"><a href="/kampala-parents-school-system">Read More →</a></p>
+                    <p class="read-more"><button class="read-more-btn" id="kampala-read-more">Read More →</button></p>
                 </div>
 
                 <!-- project Two -->
@@ -615,10 +888,11 @@
 
                 <!-- project Three -->
                 <div class="project-tile">
-                    <div><img class="project-img" src="project-three.png" alt="E-commerce Platform"></div>
+                    <div><img class="project-img" src="images%20of%20portffolio/ecommerce/image.png" alt="E-commerce Platform"></div>
                     <h3>E-commerce Platform</h3>
                     <p>A modern online shopping application featuring product browsing, cart and checkout workflows, and responsive user interfaces focused on performance and usability.</p>
-                    <p class="read-more"><a href="/ecommerce-platform">Read More →</a></p></div>
+                    <p class="read-more"><button class="read-more-btn" id="ecommerce-read-more">Read More →</button></p>
+                </div>
             </div>
         </section>
 
@@ -634,15 +908,96 @@
                         <a href="https://www.instagram.com/aloisius_kasozi/" target="_blank" rel="noreferrer"><i class="fa-brands fa-instagram"></i></a>
                         <a href="tel:+256704978132" title="tel:+256704978132"><i class="fab fa-whatsapp"></i></a>
                     </div>
-                    <p class="btn">
-                    <a href="mailto:aloisiuskasozi@gmail.com" target="_blank">Say Hello</a></p>
+                    <button class="btn" id="say-hello-btn" type="button">Say Hello</button>
                 </div>
             </div>
         </section>
 
+        <!-- Kampala Parents Project Modal -->
+        <div class="modal-overlay project-modal-overlay" id="kampala-modal" role="dialog" aria-modal="true" aria-labelledby="kampala-modal-title">
+            <div class="modal-box project-modal-box">
+                <button class="modal-close project-modal-close" id="kampala-modal-close" type="button" aria-label="Close">&#x2715;</button>
+                <h3 id="kampala-modal-title">Kampala Parents School System</h3>
+                <div class="gallery-area">
+                    <button class="gallery-nav prev" id="kampala-gallery-prev" aria-label="Previous image">&#8249;</button>
+                    <div class="gallery-main">
+                        <img id="kampala-gallery-main-img" src="images%20of%20portffolio/kampalaparents/image.png" alt="Kampala Parents overview">
+                    </div>
+                    <button class="gallery-nav next" id="kampala-gallery-next" aria-label="Next image">&#8250;</button>
+                </div>
+                <div class="gallery-thumbs">
+                    <img class="gallery-thumb active" src="images%20of%20portffolio/kampalaparents/image.png" alt="Overview" data-index="0">
+                    <img class="gallery-thumb" src="images%20of%20portffolio/kampalaparents/dashboard.png" alt="Dashboard" data-index="1">
+                    <img class="gallery-thumb" src="images%20of%20portffolio/kampalaparents/classes.png" alt="Classes" data-index="2">
+                    <img class="gallery-thumb" src="images%20of%20portffolio/kampalaparents/teacherclasses.png" alt="Teacher classes" data-index="3">
+                </div>
+                <div class="project-modal-desc">
+                    <p>A school management system built to centralize communication and daily operations for administrators, teachers, and parents in one streamlined platform.</p>
+                    <ul class="project-feature-list">
+                        <li>Central dashboard for quick academic and administrative insights</li>
+                        <li>Class and subject management for organized school workflows</li>
+                        <li>Teacher tools for class monitoring and record updates</li>
+                        <li>Role-based access for admins, teachers, and parents</li>
+                        <li>Responsive interface for mobile and desktop access</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ecommerce Project Modal -->
+        <div class="modal-overlay project-modal-overlay" id="ecommerce-modal" role="dialog" aria-modal="true" aria-labelledby="ecommerce-modal-title">
+            <div class="modal-box project-modal-box">
+                <button class="modal-close project-modal-close" id="ecommerce-modal-close" type="button" aria-label="Close">&#x2715;</button>
+                <h3 id="ecommerce-modal-title">E-commerce Platform</h3>
+                <div class="gallery-area">
+                    <button class="gallery-nav prev" id="gallery-prev" aria-label="Previous image">&#8249;</button>
+                    <div class="gallery-main">
+                        <img id="gallery-main-img" src="images%20of%20portffolio/ecommerce/image.png" alt="E-commerce home">
+                    </div>
+                    <button class="gallery-nav next" id="gallery-next" aria-label="Next image">&#8250;</button>
+                </div>
+                <div class="gallery-thumbs">
+                    <img class="gallery-thumb active" src="images%20of%20portffolio/ecommerce/image.png" alt="Home" data-index="0">
+                    <img class="gallery-thumb" src="images%20of%20portffolio/ecommerce/cart.png" alt="Cart" data-index="1">
+                    <img class="gallery-thumb" src="images%20of%20portffolio/ecommerce/vendor.png" alt="Vendor dashboard" data-index="2">
+                    <img class="gallery-thumb" src="images%20of%20portffolio/ecommerce/vendorpr.png" alt="Vendor profile" data-index="3">
+                </div>
+                <div class="project-modal-desc">
+                    <p>A modern full-stack e-commerce platform built for seamless shopping experiences. The platform supports product discovery, a fluid cart and checkout workflow, and a dedicated vendor dashboard for managing listings and orders.</p>
+                    <ul class="project-feature-list">
+                        <li>Product browsing with search and category filters</li>
+                        <li>Shopping cart management and streamlined checkout flow</li>
+                        <li>Vendor dashboard for product and order management</li>
+                        <li>Vendor profile pages with store branding</li>
+                        <li>Responsive design optimised for mobile and desktop</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Say Hello Modal -->
+        <div class="modal-overlay" id="hello-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-box">
+                <h3 id="modal-title">Let's Connect</h3>
+                <p>Choose how you'd like to reach out — I'll get back to you as soon as possible.</p>
+                <div class="modal-actions">
+                    <a class="modal-btn whatsapp" href="https://wa.me/256704978132" target="_blank" rel="noreferrer">
+                        <i class="fab fa-whatsapp" style="font-size:1.2rem;"></i> WhatsApp
+                    </a>
+                    <button class="modal-btn email" id="email-modal-btn" type="button">
+                        <i class="fas fa-envelope" style="font-size:1.1rem;"></i> Email
+                    </button>
+                    <!-- hidden mailto anchor, triggered by JS click -->
+                    <a id="mailto-trigger" href="mailto:aloisiuskasozi@gmail.com" style="display:none;" aria-hidden="true"></a>
+                </div>
+                <p class="modal-email-hint">aloisiuskasozi@gmail.com</p>
+                <button class="modal-close" id="modal-close-btn" type="button">✕ Close</button>
+            </div>
+        </div>
+
         <!-- footersection -->
         <footer id="footer-section">
-            <p>Made with love by Aloisius Kasozi </p><span class="copy">&copy; 2024 </span>
+            <p>Made with love by Aloisius Kasozi </p><span class="copy">&copy; 2026 </span>
         </footer>
 
 
@@ -780,6 +1135,141 @@
                 }
             }
         });
+
+        // Project modals with gallery support
+        (function () {
+            function initProjectModal(config) {
+                var overlay = document.getElementById(config.overlayId);
+                var closeBtn = document.getElementById(config.closeBtnId);
+                var openBtn = document.getElementById(config.openBtnId);
+                var prevBtn = document.getElementById(config.prevBtnId);
+                var nextBtn = document.getElementById(config.nextBtnId);
+                var mainImg = document.getElementById(config.mainImgId);
+
+                if (!overlay || !closeBtn || !openBtn || !prevBtn || !nextBtn || !mainImg) {
+                    return;
+                }
+
+                var thumbs = overlay.querySelectorAll(".gallery-thumb");
+                var current = 0;
+
+                function goTo(index) {
+                    current = (index + config.images.length) % config.images.length;
+                    mainImg.style.opacity = "0";
+                    setTimeout(function () {
+                        mainImg.src = config.images[current].src;
+                        mainImg.alt = config.images[current].alt;
+                        mainImg.style.opacity = "1";
+                    }, 160);
+                    thumbs.forEach(function (t, i) {
+                        t.classList.toggle("active", i === current);
+                    });
+                }
+
+                prevBtn.addEventListener("click", function () { goTo(current - 1); });
+                nextBtn.addEventListener("click", function () { goTo(current + 1); });
+                thumbs.forEach(function (t, i) {
+                    t.addEventListener("click", function () { goTo(i); });
+                });
+
+                function openModal() {
+                    goTo(0);
+                    overlay.classList.add("open");
+                    document.body.style.overflow = "hidden";
+                    closeBtn.focus();
+                }
+
+                function closeModal() {
+                    overlay.classList.remove("open");
+                    document.body.style.overflow = "";
+                    openBtn.focus();
+                }
+
+                openBtn.addEventListener("click", openModal);
+                closeBtn.addEventListener("click", closeModal);
+
+                overlay.addEventListener("click", function (e) {
+                    if (e.target === overlay) { closeModal(); }
+                });
+
+                document.addEventListener("keydown", function (e) {
+                    if (!overlay.classList.contains("open")) { return; }
+                    if (e.key === "Escape") { closeModal(); }
+                    if (e.key === "ArrowLeft") { goTo(current - 1); }
+                    if (e.key === "ArrowRight") { goTo(current + 1); }
+                });
+            }
+
+            initProjectModal({
+                overlayId: "kampala-modal",
+                closeBtnId: "kampala-modal-close",
+                openBtnId: "kampala-read-more",
+                prevBtnId: "kampala-gallery-prev",
+                nextBtnId: "kampala-gallery-next",
+                mainImgId: "kampala-gallery-main-img",
+                images: [
+                    { src: "images%20of%20portffolio/kampalaparents/image.png", alt: "Overview" },
+                    { src: "images%20of%20portffolio/kampalaparents/dashboard.png", alt: "Dashboard" },
+                    { src: "images%20of%20portffolio/kampalaparents/classes.png", alt: "Classes" },
+                    { src: "images%20of%20portffolio/kampalaparents/teacherclasses.png", alt: "Teacher classes" }
+                ]
+            });
+
+            initProjectModal({
+                overlayId: "ecommerce-modal",
+                closeBtnId: "ecommerce-modal-close",
+                openBtnId: "ecommerce-read-more",
+                prevBtnId: "gallery-prev",
+                nextBtnId: "gallery-next",
+                mainImgId: "gallery-main-img",
+                images: [
+                    { src: "images%20of%20portffolio/ecommerce/image.png", alt: "Home page" },
+                    { src: "images%20of%20portffolio/ecommerce/cart.png", alt: "Shopping cart" },
+                    { src: "images%20of%20portffolio/ecommerce/vendor.png", alt: "Vendor dashboard" },
+                    { src: "images%20of%20portffolio/ecommerce/vendorpr.png", alt: "Vendor profile" }
+                ]
+            });
+        }());
+
+        // Say Hello modal
+        (function () {
+            var overlay = document.getElementById("hello-modal");
+            var openBtn = document.getElementById("say-hello-btn");
+            var closeBtn = document.getElementById("modal-close-btn");
+
+            function openModal() {
+                overlay.classList.add("open");
+                document.body.style.overflow = "hidden";
+                closeBtn.focus();
+            }
+
+            function closeModal() {
+                overlay.classList.remove("open");
+                document.body.style.overflow = "";
+                openBtn.focus();
+            }
+
+            var emailBtn = document.getElementById("email-modal-btn");
+            var mailtoTrigger = document.getElementById("mailto-trigger");
+
+            openBtn.addEventListener("click", openModal);
+            closeBtn.addEventListener("click", closeModal);
+            emailBtn.addEventListener("click", function () {
+                mailtoTrigger.click();
+            });
+
+            overlay.addEventListener("click", function (e) {
+                if (e.target === overlay) {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape" && overlay.classList.contains("open")) {
+                    closeModal();
+                }
+            });
+        }());
     </script>
 </body>
 
