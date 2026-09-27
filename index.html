@@ -137,11 +137,11 @@
         .list-items ul {
             display: flex;
             justify-content: space-evenly;
-            width: min(100%, 500px);
+            width: min(100%, 560px);
             list-style-type: none;
             color: rgb(0, 110, 127);
-            font-size: 18px;
-            gap: 1rem;
+            font-size: 17px;
+            gap: 0.8rem;
             flex-wrap: wrap;
    
         }
@@ -305,6 +305,90 @@
             border-color: black;
         }
 
+        /* ── Stats strip (borderless, interactive) ── */
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 3.2rem;
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            text-align: left;
+        }
+
+        .stat-item {
+            padding: 0.6rem 0.2rem 0.9rem;
+            position: relative;
+            cursor: default;
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.3, 1);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 3.6vw + 1rem, 3.6rem);
+            font-weight: 700;
+            color: var(--color-heading);
+            line-height: 1;
+            letter-spacing: -0.04em;
+            display: inline-flex;
+            align-items: flex-start;
+            gap: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .stat-item:hover .stat-number {
+            color: #2EC4B6;
+        }
+
+        .stat-number .plus {
+            color: #2EC4B6;
+            font-size: 0.6em;
+            margin-top: 0.25em;
+            transition: color 0.3s ease;
+        }
+
+        .stat-item:hover .stat-number .plus {
+            color: var(--color-heading);
+        }
+
+        .stat-label {
+            margin-top: 0.55rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #6b8891;
+            position: relative;
+            padding-bottom: 0.6rem;
+            transition: color 0.3s ease;
+        }
+
+        .stat-label::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 24px;
+            background: #2EC4B6;
+            border-radius: 2px;
+            transition: width 0.45s cubic-bezier(0.25, 1, 0.3, 1);
+        }
+
+        .stat-item:hover .stat-label {
+            color: var(--color-heading);
+        }
+
+        .stat-item:hover .stat-label::after {
+            width: 56px;
+        }
+
         /* sECTION 3 CSS */
         .heading{
             align-items: center;
@@ -338,7 +422,7 @@
            padding: 20px;
         }
 
-        #projects{
+        #projects-grid{
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 1.2rem;
@@ -360,6 +444,285 @@
             text-decoration: none;
             font-weight: 700;
             color: #006E7F;
+        }
+
+        /* ── Services section (professional image cards) ── */
+        #services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.4rem;
+            margin-top: 0.5rem;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 110, 127, 0.18);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 28px rgba(12, 95, 109, 0.08);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: #2EC4B6;
+            box-shadow: 0 20px 46px rgba(12, 95, 109, 0.16);
+        }
+
+        .service-media {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: #0d2f36;
+        }
+
+        .service-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.3, 1);
+        }
+
+        .service-card:hover .service-media img {
+            transform: scale(1.08);
+        }
+
+        .service-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(12, 95, 109, 0) 45%, rgba(12, 95, 109, 0.55) 100%);
+            pointer-events: none;
+        }
+
+        .service-badge {
+            position: absolute;
+            top: 0.9rem;
+            left: 0.9rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: #006E7F;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            z-index: 1;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-body {
+            padding: 1.35rem 1.4rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .service-body h3 {
+            color: var(--color-heading);
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .service-body p {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #55526b;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        .service-tags span {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #006E7F;
+            background: rgba(0, 110, 127, 0.07);
+            padding: 0.28rem 0.65rem;
+            border-radius: 20px;
+        }
+
+        /* ── Skills section (redesigned tiles) ── */
+        .skills-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill-group {
+            background: #ffffff;
+            border: 1px solid rgba(0, 110, 127, 0.18);
+            border-radius: 18px;
+            padding: 1.6rem 1.6rem 1.7rem;
+            box-shadow: 0 10px 28px rgba(12, 95, 109, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .skill-group::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, #2EC4B6 0%, rgba(46, 196, 182, 0) 70%);
+        }
+
+        .skill-group:hover {
+            transform: translateY(-4px);
+            border-color: #2EC4B6;
+            box-shadow: 0 18px 42px rgba(12, 95, 109, 0.14);
+        }
+
+        .skill-group-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.7rem;
+            margin-bottom: 1.3rem;
+            flex-wrap: wrap;
+        }
+
+        .skill-group-title {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .skill-group-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(46, 196, 182, 0.12);
+            color: #2EC4B6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            flex-shrink: 0;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+        }
+
+        .skill-group:hover .skill-group-icon {
+            background: #2EC4B6;
+            color: #ffffff;
+            transform: rotate(-6deg) scale(1.05);
+        }
+
+        .skill-group h3 {
+            font-size: 1.05rem;
+            color: var(--color-heading);
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .skill-level {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #2EC4B6;
+            background: rgba(46, 196, 182, 0.1);
+            padding: 0.28rem 0.65rem;
+            border-radius: 30px;
+            border: 1px solid rgba(46, 196, 182, 0.22);
+        }
+
+        .skill-tiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(82px, 1fr));
+            gap: 0.6rem;
+        }
+
+        .skill-tile {
+            background: #f7fcfb;
+            border: 1px solid rgba(0, 110, 127, 0.1);
+            border-radius: 14px;
+            padding: 0.85rem 0.5rem 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            text-align: center;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.3, 1),
+                        background 0.3s ease,
+                        border-color 0.3s ease,
+                        box-shadow 0.3s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-tile::after {
+            content: "";
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 2px;
+            background: #2EC4B6;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.3, 1);
+        }
+
+        .skill-tile:hover {
+            transform: translateY(-4px);
+            background: #ffffff;
+            border-color: rgba(46, 196, 182, 0.5);
+            box-shadow: 0 12px 26px rgba(12, 95, 109, 0.12);
+        }
+
+        .skill-tile:hover::after {
+            transform: scaleX(1);
+        }
+
+        .skill-tile-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #2EC4B6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            border: 1px solid rgba(46, 196, 182, 0.25);
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.35s ease;
+        }
+
+        .skill-tile:hover .skill-tile-icon {
+            background: #2EC4B6;
+            color: #ffffff;
+            border-color: #2EC4B6;
+            transform: scale(1.08);
+        }
+
+        .skill-tile-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #0c5f6d;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
         }
 
         /* Contactsection four */
@@ -496,7 +859,11 @@
                 padding-top: 2rem;
             }
 
-            #projects {
+            #projects-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            #services-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
@@ -590,9 +957,49 @@
                 justify-content: center;
             }
 
-            #projects {
+            #projects-grid {
                 grid-template-columns: 1fr;
                 justify-items: center;
+            }
+
+            #services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Stats stay balanced in 2 columns on mobile */
+            .stats-strip {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 1.2rem 1rem;
+                margin-top: 2.6rem;
+                text-align: center;
+                justify-items: center;
+            }
+
+            .stat-item {
+                width: 100%;
+                max-width: 200px;
+                padding: 0.4rem 0.2rem 0.8rem;
+            }
+
+            /* Center the last item (3rd) across both columns */
+            .stat-item:last-child {
+                grid-column: 1 / -1;
+                justify-self: center;
+                max-width: 200px;
+            }
+
+            .stat-label::after {
+                left: 50%;
+                transform: translateX(-50%);
+                width: 22px;
+            }
+
+            .stat-item:hover .stat-label::after {
+                width: 48px;
+            }
+
+            .stat-number {
+                justify-content: center;
             }
 
             .profile-details h1 {
@@ -615,10 +1022,6 @@
             .btn {
                 width: auto;
                 max-width: 100%;
-            }
-
-            .video-showcase-card {
-                padding: 1rem;
             }
 
             .whatsapp-float {
@@ -656,6 +1059,46 @@
             .project-tile {
                 padding: 0.8rem;
             }
+
+            .service-body {
+                padding: 1.1rem 1.1rem 1.3rem;
+            }
+
+            .service-media {
+                aspect-ratio: 16 / 11;
+            }
+
+            .skill-group {
+                padding: 1.3rem 1.2rem 1.4rem;
+            }
+
+            .skill-tiles {
+                grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
+                gap: 0.5rem;
+            }
+
+            .skill-tile {
+                padding: 0.7rem 0.4rem 0.65rem;
+            }
+
+            .skill-tile-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 1.05rem;
+            }
+
+            .skill-tile-label {
+                font-size: 0.72rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .stat-label {
+                font-size: 0.72rem;
+                letter-spacing: 0.06em;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -667,6 +1110,9 @@
             }
             .whatsapp-float {
                 animation: none;
+            }
+            .service-card:hover .service-media img {
+                transform: none;
             }
         }
 
@@ -1027,62 +1473,6 @@
             text-decoration: underline;
         }
 
-        /* Featured video section */
-        .video-showcase {
-            margin-top: 4.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .video-showcase-card {
-            background: #ffffff;
-            border: 1px solid rgba(0, 110, 127, 0.22);
-            border-radius: 16px;
-            box-shadow: 0 14px 40px rgba(12, 95, 109, 0.12);
-            padding: 1.4rem;
-        }
-
-        .video-showcase-card h3 {
-            color: var(--color-heading);
-            margin-bottom: 0.4rem;
-        }
-
-        .video-showcase-card p {
-            max-width: 100%;
-            margin-bottom: 1rem;
-        }
-
-        .video-frame {
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #0d2f36;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .video-frame video {
-            display: block;
-            width: 100%;
-            height: auto;
-            max-height: 540px;
-            object-fit: cover;
-        }
-
-        .video-fallback {
-            margin-top: 0.8rem;
-            font-size: 0.9rem;
-            color: #656272;
-        }
-
-        .video-fallback a {
-            color: #006E7F;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .video-fallback a:hover {
-            text-decoration: underline;
-        }
-
 
     </style>
 </head>
@@ -1103,6 +1493,8 @@
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#skills">Skills</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#contact">Contacts</a></li>
                 </ul>
@@ -1133,6 +1525,22 @@
                     </div> 
                     <button id="learn-more-btn" type="button"
                         style=" font-size: 18px; line-height: 24px; color: white; background-color: #2EC4B6; border-radius: 50px; border: 1px solid #2EC4B6; padding: 10px; padding-left: 30px; padding-right: 30px;">Learn More</button>
+
+                    <!-- Stats strip -->
+                    <div class="stats-strip" id="stats-strip">
+                        <div class="stat-item">
+                            <div class="stat-number"><span class="stat-value" data-target="5">0</span><span class="plus">+</span></div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number"><span class="stat-value" data-target="110">0</span><span class="plus">+</span></div>
+                            <div class="stat-label">Projects Created</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number"><span class="stat-value" data-target="5">0</span></div>
+                            <div class="stat-label">Featured Projects</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="main-image">
                     <img src="aloisius.jpeg" alt="aloisius Kasozi image">
@@ -1151,7 +1559,7 @@
                     <h2 style="color: 
                     rgb(0, 110, 127); font-size: 48px; font-weight: 300; line-height: 53px;"><span id="typed-about-title" class="type-target" data-text="I Design and Develop High-Quality Web Experiences"></span></h2>
                     
-                    <p style="color: rgb(57, 54, 71); font-size: 18px; ">I am a web developer with four years of hands-on experience building responsive websites. From planning and collaboration to design and deployment, I focus on delivering solutions that are functional, fast, and visually engaging.
+                    <p style="color: rgb(57, 54, 71); font-size: 18px; ">I am a web developer with five years of hands-on experience building responsive websites. From planning and collaboration to design and deployment, I focus on delivering solutions that are functional, fast, and visually engaging.
                     </p>
                     
                     <button id="work-with-me-btn" type="button"
@@ -1160,8 +1568,225 @@
             </div>
         </section>
 
+        <!-- Services Section -->
+        <section class="services-section" id="services">
+            <div class="heading">
+                <h3 style="color: #2EC4B6;">Services</h3>
+                <h2 style="color: rgb(0, 110, 127); font-size: 48px; line-height: 53px; font-weight: 300;">What I Can Do For You</h2>
+                <p style="font-size: 18px; line-height: 29px; font-weight: 400; color: rgb(57, 54, 71);">End-to-end web solutions — from design and development to launch and support.</p>
+            </div>
+
+            <div id="services-grid">
+                <div class="service-card">
+                    <div class="service-media">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=900&q=80" alt="Web development workspace">
+                        <div class="service-badge"><i class="fas fa-laptop-code"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Web Development</h3>
+                        <p>Fast, responsive, and mobile-first websites built with clean, maintainable code that works flawlessly on every device.</p>
+                        <div class="service-tags">
+                            <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-media">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=900&q=80" alt="Full-stack development code">
+                        <div class="service-badge"><i class="fas fa-layer-group"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Full-Stack Applications</h3>
+                        <p>Complete web apps with secure backends, database integration, authentication, and smooth end-to-end user flows.</p>
+                        <div class="service-tags">
+                            <span>APIs</span><span>Databases</span><span>Auth</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-media">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=900&q=80" alt="Responsive design across devices">
+                        <div class="service-badge"><i class="fas fa-mobile-screen-button"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Responsive Design</h3>
+                        <p>Pixel-perfect layouts that adapt beautifully to phones, tablets, and desktops without compromising performance.</p>
+                        <div class="service-tags">
+                            <span>Mobile-First</span><span>Flexbox</span><span>Grid</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-media">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80" alt="E-commerce shopping">
+                        <div class="service-badge"><i class="fas fa-cart-shopping"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>E-Commerce Solutions</h3>
+                        <p>Online stores with product management, secure checkout flows, and admin dashboards built to help businesses sell online.</p>
+                        <div class="service-tags">
+                            <span>Stores</span><span>Payments</span><span>Admin</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-media">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80" alt="Performance analytics">
+                        <div class="service-badge"><i class="fas fa-gauge-high"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Performance & SEO</h3>
+                        <p>Speed optimization, accessibility improvements, and on-page SEO so your site loads fast and ranks well on search engines.</p>
+                        <div class="service-tags">
+                            <span>Speed</span><span>SEO</span><span>A11y</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-media">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80" alt="Developer maintenance and support">
+                        <div class="service-badge"><i class="fas fa-screwdriver-wrench"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Maintenance & Support</h3>
+                        <p>Ongoing updates, bug fixes, and feature enhancements to keep your site secure, current, and running smoothly.</p>
+                        <div class="service-tags">
+                            <span>Updates</span><span>Fixes</span><span>Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <br><br><br>
+        <!-- Skills Section -->
+        <section class="skills-section" id="skills">
+            <div class="heading">
+                <h3 style="color: #2EC4B6;">Skills</h3>
+                <h2 style="color: rgb(0, 110, 127); font-size: 48px; line-height: 53px; font-weight: 300;">Technologies I Work With</h2>
+                <p style="font-size: 18px; line-height: 29px; font-weight: 400; color: rgb(57, 54, 71);">A toolkit refined over five years of building for the modern web.</p>
+            </div>
+
+            <div class="skills-wrapper">
+                <div class="skill-group">
+                    <div class="skill-group-header">
+                        <div class="skill-group-title">
+                            <div class="skill-group-icon"><i class="fas fa-code"></i></div>
+                            <h3>Languages</h3>
+                        </div>
+                        <span class="skill-level">Core</span>
+                    </div>
+                    <div class="skill-tiles">
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-html5"></i></div>
+                            <span class="skill-tile-label">HTML5</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-css3-alt"></i></div>
+                            <span class="skill-tile-label">CSS3</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-js"></i></div>
+                            <span class="skill-tile-label">JavaScript</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-php"></i></div>
+                            <span class="skill-tile-label">PHP</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-python"></i></div>
+                            <span class="skill-tile-label">Python</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fas fa-database"></i></div>
+                            <span class="skill-tile-label">SQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group-header">
+                        <div class="skill-group-title">
+                            <div class="skill-group-icon"><i class="fas fa-cubes"></i></div>
+                            <h3>Frameworks & Libraries</h3>
+                        </div>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="skill-tiles">
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-react"></i></div>
+                            <span class="skill-tile-label">React</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-node-js"></i></div>
+                            <span class="skill-tile-label">Node.js</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-laravel"></i></div>
+                            <span class="skill-tile-label">Laravel</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fas fa-wind"></i></div>
+                            <span class="skill-tile-label">Tailwind</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-bootstrap"></i></div>
+                            <span class="skill-tile-label">Bootstrap</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-vuejs"></i></div>
+                            <span class="skill-tile-label">Vue</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group-header">
+                        <div class="skill-group-title">
+                            <div class="skill-group-icon"><i class="fas fa-toolbox"></i></div>
+                            <h3>Tools & Platforms</h3>
+                        </div>
+                        <span class="skill-level">Comfortable</span>
+                    </div>
+                    <div class="skill-tiles">
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-git-alt"></i></div>
+                            <span class="skill-tile-label">Git</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-github"></i></div>
+                            <span class="skill-tile-label">GitHub</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-figma"></i></div>
+                            <span class="skill-tile-label">Figma</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fas fa-server"></i></div>
+                            <span class="skill-tile-label">REST APIs</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fas fa-database"></i></div>
+                            <span class="skill-tile-label">MySQL</span>
+                        </div>
+                        <div class="skill-tile">
+                            <div class="skill-tile-icon"><i class="fab fa-wordpress"></i></div>
+                            <span class="skill-tile-label">WordPress</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <br><br><br>
         <!-- Third Section -->
-        <section class="portfolio">
+        <section class="portfolio" id="projects">
             <div class="heading">
                 <h3 style="color: #2EC4B6;">Portfolio</h3>
                 <h2 style="color: 
@@ -1170,7 +1795,7 @@
             </div>
 
             <!-- project cards -->
-            <div id="projects">
+            <div id="projects-grid">
                 <!-- project one -->
                 <div class="project-tile">
                     <div><img class="project-img" src="images%20of%20portffolio/kampalaparents/image.png" alt="Kampala Parents School System"></div>
@@ -1196,26 +1821,6 @@
                 </div>
             </div>
         </section>
-
-        <section class="video-showcase" id="video-showcase">
-            <div class="heading">
-                <h3 style="color: #2EC4B6;">Featured Demo</h3>
-                <h2 style="color: rgb(0, 110, 127); font-size: 42px; line-height: 48px; font-weight: 300;">Project Walkthrough Video</h2>
-                <p style="font-size: 18px; line-height: 29px; font-weight: 400; color: rgb(57, 54, 71);">A quick walkthrough showing part of my work in action.</p>
-            </div>
-            <div class="video-showcase-card">
-                <h3>Live Preview</h3>
-                <p>Use the player controls to watch the demo directly on this page.</p>
-                <div class="video-frame">
-                    <video controls preload="metadata">
-                        <source src="videos/2025-12-19%2011-44-11.mkv" type="video/x-matroska">
-                        Your browser does not support this video format.
-                    </video>
-                </div>
-                <p class="video-fallback">If the video does not play, open it directly here: <a href="videos/2025-12-19%2011-44-11.mkv" target="_blank" rel="noreferrer">Download video</a></p>
-            </div>
-        </section>
-
 
         <section class="contact" id="contact">
             <div>
@@ -1361,7 +1966,7 @@
                 <h3 id="modal-title">Let's Connect</h3>
                 <p>Choose how you'd like to reach out — I'll get back to you as soon as possible.</p>
                 <div class="modal-actions">
-                    <a class="modal-btn whatsapp" href="https://wa.me/256704978132" target="_blank" rel="noreferrer">
+                    <a class="modal-btn whatsapp" href="https://wa.me/256767267209" target="_blank" rel="noreferrer">
                         <i class="fab fa-whatsapp" style="font-size:1.2rem;"></i> WhatsApp
                     </a>
                     <button class="modal-btn email" id="email-modal-btn" type="button">
@@ -1393,7 +1998,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var revealTargets = Array.from(document.querySelectorAll(
-                ".first-section .profile-details, .main-image, .second-section .image, .second-section .profile-details, .heading, .project-tile, .video-showcase-card, .contact, #footer-section p, #footer-section span"
+                ".first-section .profile-details, .main-image, .second-section .image, .second-section .profile-details, .heading, .stats-strip, .service-card, .skill-group, .project-tile, .contact, #footer-section p, #footer-section span"
             ));
 
             revealTargets.forEach(function (element, index) {
@@ -1546,6 +2151,50 @@
                     lastScrollY = currentScrollY;
                 }, { passive: true });
             }
+
+            // ── Stats count-up animation ──
+            (function () {
+                var statValues = document.querySelectorAll(".stat-value");
+                if (!statValues.length) { return; }
+
+                function animateCount(el) {
+                    var target = parseInt(el.getAttribute("data-target"), 10) || 0;
+                    var duration = 1400;
+                    var startTime = null;
+
+                    function step(timestamp) {
+                        if (!startTime) { startTime = timestamp; }
+                        var progress = Math.min((timestamp - startTime) / duration, 1);
+                        // easeOutCubic
+                        var eased = 1 - Math.pow(1 - progress, 3);
+                        el.textContent = Math.floor(eased * target);
+                        if (progress < 1) {
+                            requestAnimationFrame(step);
+                        } else {
+                            el.textContent = target;
+                        }
+                    }
+
+                    requestAnimationFrame(step);
+                }
+
+                if (!("IntersectionObserver" in window)) {
+                    statValues.forEach(animateCount);
+                } else {
+                    var statsObserver = new IntersectionObserver(function (entries, obs) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                animateCount(entry.target);
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.5 });
+
+                    statValues.forEach(function (el) {
+                        statsObserver.observe(el);
+                    });
+                }
+            }());
         });
 
         // Lightbox
@@ -1799,12 +2448,10 @@
                 }
             });
 
-            // Close when a link is clicked
             links.forEach(function (link) {
                 link.addEventListener("click", closeMenu);
             });
 
-            // Close on outside click
             document.addEventListener("click", function (e) {
                 if (!menu.classList.contains("open")) { return; }
                 if (!menu.contains(e.target) && !toggle.contains(e.target)) {
@@ -1812,14 +2459,12 @@
                 }
             });
 
-            // Close on Escape
             document.addEventListener("keydown", function (e) {
                 if (e.key === "Escape" && menu.classList.contains("open")) {
                     closeMenu();
                 }
             });
 
-            // Reset state on resize to desktop
             window.addEventListener("resize", function () {
                 if (window.innerWidth > 768) {
                     closeMenu();
