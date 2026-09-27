@@ -107,7 +107,6 @@
             -webkit-font-smoothing: antialiased;
             padding-top: 88px;
             transition: background 0.4s ease, color 0.4s ease;
-            perspective: var(--perspective);
         }
 
         .ambient-bg {
@@ -175,6 +174,7 @@
             z-index: 1;
         }
 
+        /* ── Header / Nav ── */
         header {
             position: fixed;
             top: 0;
@@ -184,12 +184,19 @@
             background: var(--color-header-bg);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            transition: transform 0.18s ease, box-shadow 0.22s ease, background 0.4s ease;
+            transition: transform 0.28s cubic-bezier(0.22, 1, 0.3, 1), box-shadow 0.22s ease, background 0.4s ease, opacity 0.28s ease;
             isolation: isolate;
+            will-change: transform;
         }
 
-        header.nav-hidden { transform: translateY(-105%); }
-        header.nav-scrolled { box-shadow: 0 10px 26px rgba(12, 95, 109, 0.14); }
+        header.nav-hidden {
+            transform: translateY(-105%);
+            opacity: 0.98;
+        }
+
+        header.nav-scrolled {
+            box-shadow: 0 10px 26px rgba(12, 95, 109, 0.14);
+        }
 
         .logo {
             color: #2EC4B6;
@@ -401,6 +408,7 @@
             display: flex;
             justify-content: center;
             transform-style: preserve-3d;
+            perspective: 1400px;
         }
 
         .main-image img,
@@ -549,6 +557,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.2rem;
             margin-top: 0.5rem;
+            perspective: 1400px;
         }
 
         .skill-group {
@@ -634,6 +643,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(82px, 1fr));
             gap: 0.6rem;
+            perspective: 1000px;
         }
 
         .skill-tile {
@@ -708,9 +718,7 @@
 
         /* ══════════════════════════════════════════════
            SERVICES — pinned cinematic reel
-           Left: image strip + thumbnails. Right: details
            ══════════════════════════════════════════════ */
-
         .services-section { padding: 0; margin: 0; }
 
         .services-intro {
@@ -986,10 +994,7 @@
 
         /* ══════════════════════════════════════════════
            PORTFOLIO — pinned cinematic reel
-           Left: details panel. Right: image strip
-           (Mirror of services)
            ══════════════════════════════════════════════ */
-
         .portfolio-section {
             padding: 0;
             margin: 0;
@@ -1041,7 +1046,6 @@
             max-height: 78vh;
         }
 
-        /* Details first (left), then visuals on the right */
         .port-details-wrap {
             position: relative;
             min-width: 0;
@@ -1118,7 +1122,6 @@
             border-radius: 20px;
         }
 
-        /* Image strip on the right */
         .port-strip-wrap {
             position: relative;
             display: flex;
@@ -1333,33 +1336,44 @@
             transform: perspective(1200px) translateY(0) translateZ(0) rotateX(0deg) rotateY(0deg);
         }
 
+        /* ══════════════════════════════════════════════
+           FLOATING WHATSAPP — fixed topmost layer
+           ══════════════════════════════════════════════ */
         .whatsapp-float {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 60px;
-            height: 60px;
+            position: fixed !important;
+            bottom: 24px !important;
+            right: 24px !important;
+            width: 64px;
+            height: 64px;
             background: #25D366;
             color: #ffffff !important;
             border-radius: 50%;
-            display: flex;
+            display: flex !important;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
-            z-index: 990;
+            font-size: 2rem;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5), 0 0 0 4px rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.95);
+            z-index: 2147483000 !important;
             text-decoration: none;
             transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
             animation: waPulse 2.4s ease-in-out infinite;
+            isolation: isolate;
+            pointer-events: auto !important;
+        }
+
+        html[data-theme="dark"] .whatsapp-float {
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.55), 0 0 0 4px rgba(11, 20, 24, 0.9);
+            border-color: rgba(11, 20, 24, 0.9);
         }
 
         .whatsapp-float:hover {
             transform: scale(1.1) rotate(-6deg);
             background: #1ebe5d;
-            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.6);
+            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.65), 0 0 0 4px rgba(255, 255, 255, 0.95);
         }
 
-        .whatsapp-float i { color: #ffffff; }
+        .whatsapp-float i { color: #ffffff; pointer-events: none; }
 
         @keyframes waPulse {
             0%, 100% {
@@ -1370,7 +1384,7 @@
             }
         }
 
-        /* Mobile fallback — services */
+        /* Mobile fallbacks */
         @media (max-width: 900px) {
             .services-pin { height: auto !important; }
             .services-sticky {
@@ -1400,7 +1414,6 @@
             .svc-details-panel.active { display: block; position: relative; }
             .svc-progress { display: none; }
 
-            /* Mobile fallback — portfolio */
             .portfolio-pin { height: auto !important; }
             .portfolio-sticky {
                 position: relative;
@@ -1557,11 +1570,11 @@
             .btn { width: auto; max-width: 100%; }
 
             .whatsapp-float {
-                width: 54px;
-                height: 54px;
-                font-size: 1.55rem;
-                bottom: 18px;
-                right: 18px;
+                width: 56px;
+                height: 56px;
+                font-size: 1.7rem;
+                bottom: 18px !important;
+                right: 18px !important;
             }
         }
 
@@ -1949,7 +1962,7 @@
 
     <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
-    <header>
+    <header id="site-header">
         <nav>
             <div class="logo">
                 <h1>A|K</h1>
@@ -2037,10 +2050,7 @@
             </div>
         </section>
 
-        <!-- ══════════════════════════════════════════════
-             SERVICES — pinned cinematic reel
-             Left: image strip + thumbnails. Right: details
-             ══════════════════════════════════════════════ -->
+        <!-- SERVICES -->
         <section class="services-section" id="services">
             <div class="services-intro">
                 <div class="heading">
@@ -2314,10 +2324,7 @@
         </section>
 
         <br><br><br>
-        <!-- ══════════════════════════════════════════════
-             PORTFOLIO — pinned cinematic reel
-             Left: details panel. Right: image strip
-             ══════════════════════════════════════════════ -->
+        <!-- PORTFOLIO -->
         <section class="portfolio-section" id="projects">
             <div class="portfolio-intro">
                 <div class="heading">
@@ -2331,7 +2338,6 @@
                 <div class="portfolio-sticky">
                     <div class="port-reel">
 
-                        <!-- LEFT: details panel -->
                         <div class="port-details-wrap">
                             <div class="port-details" id="portDetails">
 
@@ -2374,7 +2380,6 @@
                             </div>
                         </div>
 
-                        <!-- RIGHT: image strip + thumbnails -->
                         <div class="port-strip-wrap">
                             <span class="port-strip-label">Featured projects</span>
                             <div class="port-strip-viewport">
@@ -2760,32 +2765,59 @@
                 }
             }
 
-            var siteHeader = document.querySelector("header");
-            if (siteHeader) {
-                var lastScrollY = window.scrollY || 0;
-                var hideAfter = 90;
+            // ══════════════════════════════════════════════
+            // NAV show/hide + scroll behaviour
+            // Appears on load. Hides as soon as the user scrolls
+            // down past the header. Reappears immediately on any
+            // upward scroll movement.
+            // ══════════════════════════════════════════════
+            (function () {
+                var siteHeader = document.getElementById("site-header") || document.querySelector("header");
+                if (!siteHeader) { return; }
+
+                var lastScrollY = window.scrollY || window.pageYOffset || 0;
+                var headerHeight = siteHeader.offsetHeight || 88;
+
+                function setHidden(hidden) {
+                    if (hidden) {
+                        siteHeader.classList.add("nav-hidden");
+                    } else {
+                        siteHeader.classList.remove("nav-hidden");
+                    }
+                }
+
+                // Always visible on initial load
+                setHidden(false);
 
                 window.addEventListener("scroll", function () {
-                    var currentScrollY = window.scrollY || 0;
+                    var currentScrollY = window.scrollY || window.pageYOffset || 0;
                     var delta = currentScrollY - lastScrollY;
 
-                    if (currentScrollY <= 10) {
-                        siteHeader.classList.remove("nav-hidden", "nav-scrolled");
+                    // Always visible near the top of the page
+                    if (currentScrollY <= headerHeight) {
+                        siteHeader.classList.remove("nav-hidden");
+                        siteHeader.classList.remove("nav-scrolled");
                         lastScrollY = currentScrollY;
                         return;
                     }
 
                     siteHeader.classList.add("nav-scrolled");
 
-                    if (delta > 4 && currentScrollY > hideAfter) {
-                        siteHeader.classList.add("nav-hidden");
-                    } else if (delta < -2) {
-                        siteHeader.classList.remove("nav-hidden");
+                    if (delta > 0) {
+                        // Scrolling down → hide right away
+                        setHidden(true);
+                    } else if (delta < 0) {
+                        // Scrolling up → show immediately
+                        setHidden(false);
                     }
 
                     lastScrollY = currentScrollY;
                 }, { passive: true });
-            }
+
+                window.addEventListener("resize", function () {
+                    headerHeight = siteHeader.offsetHeight || headerHeight;
+                });
+            }());
 
             (function () {
                 var statValues = document.querySelectorAll(".stat-value");
@@ -2829,9 +2861,7 @@
                 }
             }());
 
-            // ══════════════════════════════════════════════
             // SERVICES pinned reel
-            // ══════════════════════════════════════════════
             (function () {
                 var pin      = document.getElementById("servicesPin");
                 var strip    = document.getElementById("svcStrip");
@@ -2913,9 +2943,7 @@
                 setup();
             }());
 
-            // ══════════════════════════════════════════════
-            // PORTFOLIO pinned reel (mirror of services)
-            // ══════════════════════════════════════════════
+            // PORTFOLIO pinned reel
             (function () {
                 var pin      = document.getElementById("portfolioPin");
                 var strip    = document.getElementById("portStrip");
