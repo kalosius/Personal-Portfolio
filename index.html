@@ -20,8 +20,72 @@
             --color-heading: #0c5f6d;
             --color-text: #393647;
             --color-accent: #2EC4B6;
+            --color-accent-strong: #006E7F;
             --color-bg-soft: #f4fbfa;
+            --color-bg-body: #ffffff;
+            --color-bg-page: linear-gradient(180deg, #ffffff 0%, var(--color-bg-soft) 100%);
+            --color-card: #ffffff;
+            --color-card-soft: #f7fcfb;
+            --color-border: rgba(0, 110, 127, 0.18);
+            --color-border-soft: rgba(0, 110, 127, 0.1);
+            --color-muted: #6b8891;
+            --color-body-text-soft: #55526b;
+            --color-header-bg: rgba(255, 255, 255, 0.95);
+            --color-mobile-menu-bg: rgba(255, 255, 255, 0.98);
+            --color-modal-bg: #ffffff;
+            --color-modal-text-muted: #6b6880;
+            --color-gallery-bg: #f0f4f5;
+            --color-shadow: rgba(12, 95, 109, 0.08);
+            --color-shadow-strong: rgba(12, 95, 109, 0.16);
+            --color-shadow-modal: rgba(12, 95, 109, 0.22);
+            --color-stat-label: #6b8891;
+            --color-skill-tile-bg: #f7fcfb;
+            --color-skill-tile-icon-bg: #ffffff;
+            --color-nav-link: rgb(0, 110, 127);
+            --color-nav-link-hover-bg: #f0f4f5;
+            --color-tag-bg: rgba(0, 110, 127, 0.07);
+            --color-tag-text: #006E7F;
+            --color-section-eyebrow: #2EC4B6;
+            --color-headline: rgb(0, 110, 127);
+            --color-body: rgb(57, 54, 71);
+            --color-about-title: rgb(0, 110, 127);
             --measure: 65ch;
+        }
+
+        /* ── Dark theme ── */
+        html[data-theme="dark"] {
+            --color-heading: #7DE3D8;
+            --color-text: #d7e0e3;
+            --color-accent: #2EC4B6;
+            --color-accent-strong: #7DE3D8;
+            --color-bg-soft: #0f1c21;
+            --color-bg-body: #0b1418;
+            --color-bg-page: linear-gradient(180deg, #0b1418 0%, #0f1c21 100%);
+            --color-card: #142328;
+            --color-card-soft: #172a30;
+            --color-border: rgba(46, 196, 182, 0.28);
+            --color-border-soft: rgba(46, 196, 182, 0.14);
+            --color-muted: #8ba3ab;
+            --color-body-text-soft: #b6c9cf;
+            --color-header-bg: rgba(11, 20, 24, 0.9);
+            --color-mobile-menu-bg: rgba(15, 28, 33, 0.98);
+            --color-modal-bg: #142328;
+            --color-modal-text-muted: #a9bcc2;
+            --color-gallery-bg: #0d1a1f;
+            --color-shadow: rgba(0, 0, 0, 0.4);
+            --color-shadow-strong: rgba(0, 0, 0, 0.55);
+            --color-shadow-modal: rgba(0, 0, 0, 0.6);
+            --color-stat-label: #a9bcc2;
+            --color-skill-tile-bg: #172a30;
+            --color-skill-tile-icon-bg: #0f1c21;
+            --color-nav-link: #b7d8dd;
+            --color-nav-link-hover-bg: rgba(46, 196, 182, 0.15);
+            --color-tag-bg: rgba(46, 196, 182, 0.14);
+            --color-tag-text: #7DE3D8;
+            --color-section-eyebrow: #2EC4B6;
+            --color-headline: #7DE3D8;
+            --color-body: #b6c9cf;
+            --color-about-title: #7DE3D8;
         }
 
         * {
@@ -39,10 +103,11 @@
             line-height: 1.7;
             overflow-x: hidden;
             color: var(--color-text);
-            background: linear-gradient(180deg, #ffffff 0%, var(--color-bg-soft) 100%);
+            background: var(--color-bg-page);
             text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
             padding-top: 88px;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
         img {
@@ -75,10 +140,10 @@
             left: 0;
             right: 0;
             z-index: 950;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--color-header-bg);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            transition: transform 0.18s ease, box-shadow 0.22s ease;
+            transition: transform 0.18s ease, box-shadow 0.22s ease, background 0.4s ease;
         }
 
         header.nav-hidden {
@@ -110,12 +175,54 @@
             position: relative;
         }
 
+        /* ── Theme toggle button ── */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(46, 196, 182, 0.1);
+            color: var(--color-accent-strong);
+            border: 1px solid rgba(46, 196, 182, 0.25);
+            font-size: 1rem;
+            padding: 0;
+            cursor: pointer;
+            transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .theme-toggle:hover {
+            background: #2EC4B6;
+            color: #ffffff;
+            border-color: #2EC4B6;
+            transform: rotate(20deg);
+        }
+
+        html[data-theme="dark"] .theme-toggle {
+            background: rgba(46, 196, 182, 0.15);
+            color: #7DE3D8;
+            border-color: rgba(46, 196, 182, 0.35);
+        }
+
+        html[data-theme="dark"] .theme-toggle:hover {
+            background: #2EC4B6;
+            color: #0b1418;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
         /* ── Hamburger menu button ── */
         .menu-toggle {
             display: none;
             background: none;
             border: none;
-            color: #006E7F;
+            color: var(--color-accent-strong);
             font-size: 1.6rem;
             padding: 0.4rem 0.7rem;
             cursor: pointer;
@@ -125,8 +232,12 @@
             width: auto;
         }
 
+        html[data-theme="dark"] .menu-toggle {
+            color: #7DE3D8;
+        }
+
         .menu-toggle:hover {
-            background: #f0f4f5;
+            background: var(--color-nav-link-hover-bg);
             color: #2EC4B6;
         }
 
@@ -139,7 +250,7 @@
             justify-content: space-evenly;
             width: min(100%, 560px);
             list-style-type: none;
-            color: rgb(0, 110, 127);
+            color: var(--color-nav-link);
             font-size: 17px;
             gap: 0.8rem;
             flex-wrap: wrap;
@@ -152,7 +263,7 @@
 
         .list-items ul li a{
             text-decoration: none;
-            color: rgb(0, 110, 127);
+            color: var(--color-nav-link);
             font-family: var(--font-display);
             font-weight: 500;
             letter-spacing: 0.02em;
@@ -200,20 +311,21 @@
         .profile-details p {
             margin-top: 1rem;
             margin-bottom: 1rem;
+            color: var(--color-body);
         }
 
         .profile-details h1 {
             font-size: clamp(2.6rem, 4vw + 1.2rem, 5rem) !important;
             line-height: 1.05 !important;
             font-weight: 600 !important;
-            color: var(--color-heading) !important;
+            color: var(--color-headline) !important;
         }
 
         .profile-details h2 {
             font-size: clamp(2rem, 2.6vw + 1rem, 3.1rem) !important;
             line-height: 1.12 !important;
             font-weight: 500 !important;
-            color: var(--color-heading) !important;
+            color: var(--color-headline) !important;
         }
 
         .profile-details h3,
@@ -222,12 +334,13 @@
             letter-spacing: 0.08em;
             font-size: 0.88rem !important;
             font-weight: 700;
+            color: var(--color-section-eyebrow) !important;
         }
 
         .profile-details h5 {
             font-size: clamp(1.1rem, 1rem + 0.8vw, 1.5rem) !important;
             font-weight: 400 !important;
-            color: #006E7F !important;
+            color: var(--color-accent-strong) !important;
             margin: 0.5rem 0 0.75rem;
         }
 
@@ -275,8 +388,12 @@
         }
 
         .social a {
-            color: #006E7F;
+            color: var(--color-accent-strong);
             transition: transform 0.25s ease, color 0.25s ease;
+        }
+
+        html[data-theme="dark"] .social a {
+            color: #7DE3D8;
         }
 
         .social a:hover {
@@ -303,6 +420,12 @@
         button:hover {
             background-color: black;
             border-color: black;
+        }
+
+        html[data-theme="dark"] button:hover {
+            background-color: #7DE3D8;
+            border-color: #7DE3D8;
+            color: #0b1418;
         }
 
         /* ── Stats strip (borderless, interactive) ── */
@@ -363,7 +486,7 @@
             font-weight: 600;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #6b8891;
+            color: var(--color-stat-label);
             position: relative;
             padding-bottom: 0.6rem;
             transition: color 0.3s ease;
@@ -395,20 +518,26 @@
             text-align: center;
             margin-top: 2rem;
             margin-bottom: 2rem;
-        
-            
+        }
+
+        .heading h2 {
+            color: var(--color-headline) !important;
+        }
+
+        .heading p {
+            color: var(--color-body) !important;
         }
 
         .project-tile{
             margin-top: 10px;
-            border: 1px solid #006E7F;
+            border: 1px solid var(--color-border);
             width: 100%;
             max-width: 350px;
             padding: 10px;
             transition: all 0.5s ease;
             border-radius: 12px;
-            background: #ffffff;
-            box-shadow: 0 10px 28px rgba(12, 95, 109, 0.08);
+            background: var(--color-card);
+            box-shadow: 0 10px 28px var(--color-shadow);
         }
 
         .project-img {
@@ -433,6 +562,7 @@
             word-break: break-word;
             max-width: 100%;
             line-height: 1.65;
+            color: var(--color-body-text-soft);
         }
 
         .project-tile h3 {
@@ -443,7 +573,7 @@
         .read-more a{
             text-decoration: none;
             font-weight: 700;
-            color: #006E7F;
+            color: var(--color-accent-strong);
         }
 
         /* ── Services section (professional image cards) ── */
@@ -455,12 +585,12 @@
         }
 
         .service-card {
-            background: #ffffff;
-            border: 1px solid rgba(0, 110, 127, 0.18);
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
             border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 10px 28px rgba(12, 95, 109, 0.08);
-            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+            box-shadow: 0 10px 28px var(--color-shadow);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.4s ease;
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -469,7 +599,7 @@
         .service-card:hover {
             transform: translateY(-6px);
             border-color: #2EC4B6;
-            box-shadow: 0 20px 46px rgba(12, 95, 109, 0.16);
+            box-shadow: 0 20px 46px var(--color-shadow-strong);
         }
 
         .service-media {
@@ -534,7 +664,7 @@
         .service-body p {
             font-size: 0.95rem;
             line-height: 1.65;
-            color: #55526b;
+            color: var(--color-body-text-soft);
             max-width: 100%;
             margin: 0;
         }
@@ -552,8 +682,8 @@
             font-weight: 600;
             letter-spacing: 0.04em;
             text-transform: uppercase;
-            color: #006E7F;
-            background: rgba(0, 110, 127, 0.07);
+            color: var(--color-tag-text);
+            background: var(--color-tag-bg);
             padding: 0.28rem 0.65rem;
             border-radius: 20px;
         }
@@ -567,14 +697,14 @@
         }
 
         .skill-group {
-            background: #ffffff;
-            border: 1px solid rgba(0, 110, 127, 0.18);
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
             border-radius: 18px;
             padding: 1.6rem 1.6rem 1.7rem;
-            box-shadow: 0 10px 28px rgba(12, 95, 109, 0.08);
+            box-shadow: 0 10px 28px var(--color-shadow);
             position: relative;
             overflow: hidden;
-            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.4s ease;
         }
 
         .skill-group::before {
@@ -590,7 +720,7 @@
         .skill-group:hover {
             transform: translateY(-4px);
             border-color: #2EC4B6;
-            box-shadow: 0 18px 42px rgba(12, 95, 109, 0.14);
+            box-shadow: 0 18px 42px var(--color-shadow-strong);
         }
 
         .skill-group-header {
@@ -655,8 +785,8 @@
         }
 
         .skill-tile {
-            background: #f7fcfb;
-            border: 1px solid rgba(0, 110, 127, 0.1);
+            background: var(--color-skill-tile-bg);
+            border: 1px solid var(--color-border-soft);
             border-radius: 14px;
             padding: 0.85rem 0.5rem 0.75rem;
             display: flex;
@@ -687,9 +817,9 @@
 
         .skill-tile:hover {
             transform: translateY(-4px);
-            background: #ffffff;
+            background: var(--color-card);
             border-color: rgba(46, 196, 182, 0.5);
-            box-shadow: 0 12px 26px rgba(12, 95, 109, 0.12);
+            box-shadow: 0 12px 26px var(--color-shadow);
         }
 
         .skill-tile:hover::after {
@@ -700,7 +830,7 @@
             width: 42px;
             height: 42px;
             border-radius: 50%;
-            background: #ffffff;
+            background: var(--color-skill-tile-icon-bg);
             color: #2EC4B6;
             display: flex;
             align-items: center;
@@ -720,7 +850,7 @@
         .skill-tile-label {
             font-size: 0.78rem;
             font-weight: 600;
-            color: #0c5f6d;
+            color: var(--color-heading);
             line-height: 1.2;
             letter-spacing: -0.01em;
         }
@@ -733,6 +863,10 @@
             width: min(760px, 100%);
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .contact p {
+            color: var(--color-body);
         }
 
         .top-padding{
@@ -768,12 +902,22 @@
             font-family: 'Courier New', Courier, monospace;
         }
 
+        html[data-theme="dark"] .btn:hover {
+            background-color: #7DE3D8;
+            color: #0b1418;
+        }
+
         /* Footer section */
         #footer-section{
             margin-top: 5rem;
-            border-top: 1px solid #006E7F;
+            border-top: 1px solid var(--color-accent-strong);
             text-align: center;
             padding-bottom: 2rem;
+        }
+
+        #footer-section p,
+        #footer-section span {
+            color: var(--color-body);
         }
 
         #footer-section p{
@@ -901,11 +1045,11 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(255, 255, 255, 0.98);
+                background: var(--color-mobile-menu-bg);
                 backdrop-filter: blur(10px);
                 -webkit-backdrop-filter: blur(10px);
                 box-shadow: 0 12px 28px rgba(12, 95, 109, 0.14);
-                border-top: 1px solid rgba(0, 110, 127, 0.1);
+                border-top: 1px solid var(--color-border-soft);
                 max-height: 0;
                 overflow: hidden;
                 transition: max-height 0.4s ease, padding 0.3s ease;
@@ -927,7 +1071,7 @@
 
             .list-items ul li {
                 width: 100%;
-                border-bottom: 1px solid rgba(0, 110, 127, 0.08);
+                border-bottom: 1px solid var(--color-border-soft);
                 padding: 0.75rem 0.4rem;
             }
 
@@ -1138,14 +1282,14 @@
         }
 
         .modal-box {
-            background: #ffffff;
+            background: var(--color-modal-bg);
             border-radius: 20px;
             padding: 2.8rem 2.4rem 2.4rem;
             width: min(94%, 440px);
             text-align: center;
-            box-shadow: 0 32px 80px rgba(12, 95, 109, 0.22);
+            box-shadow: 0 32px 80px var(--color-shadow-modal);
             transform: translateY(28px) scale(0.97);
-            transition: transform 0.38s cubic-bezier(0.34, 1.42, 0.64, 1), opacity 0.35s ease;
+            transition: transform 0.38s cubic-bezier(0.34, 1.42, 0.64, 1), opacity 0.35s ease, background 0.4s ease;
             opacity: 0;
         }
 
@@ -1164,7 +1308,7 @@
 
         .modal-box p {
             font-size: 0.97rem;
-            color: #6b6880;
+            color: var(--color-modal-text-muted);
             margin-bottom: 2rem;
             max-width: 100%;
         }
@@ -1218,7 +1362,7 @@
             margin-top: 1.6rem;
             background: none;
             border: none;
-            color: #aaa;
+            color: var(--color-muted);
             font-size: 0.9rem;
             cursor: pointer;
             padding: 0.3rem 0.8rem;
@@ -1228,14 +1372,14 @@
 
         .modal-close:hover {
             color: var(--color-heading);
-            background: #f0f4f5;
+            background: var(--color-border-soft);
         }
 
         .modal-email-hint {
             margin-top: 1.2rem;
             margin-bottom: 0;
             font-size: 0.82rem !important;
-            color: #aaa;
+            color: var(--color-muted);
             letter-spacing: 0.01em;
             user-select: all;
         }
@@ -1277,7 +1421,7 @@
             flex: 1;
             border-radius: 10px;
             overflow: hidden;
-            background: #f0f4f5;
+            background: var(--color-gallery-bg);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1378,7 +1522,7 @@
         }
 
         .gallery-nav {
-            background: #006E7F;
+            background: var(--color-accent-strong);
             color: #fff;
             border: none;
             border-radius: 50%;
@@ -1431,7 +1575,7 @@
 
         .project-modal-desc p {
             font-size: 0.97rem;
-            color: #393647;
+            color: var(--color-body-text-soft);
             line-height: 1.7;
             margin-bottom: 0.9rem;
         }
@@ -1446,7 +1590,7 @@
             padding: 0.28rem 0 0.28rem 1.5rem;
             position: relative;
             font-size: 0.93rem;
-            color: #393647;
+            color: var(--color-body-text-soft);
         }
 
         .project-feature-list li::before {
@@ -1464,7 +1608,7 @@
             font-family: var(--font-body);
             font-size: inherit;
             font-weight: 700;
-            color: #006E7F;
+            color: var(--color-accent-strong);
             cursor: pointer;
             text-decoration: none;
         }
@@ -1475,6 +1619,20 @@
 
 
     </style>
+
+    <!-- Set theme before paint to avoid flash of wrong theme -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem("theme");
+                var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+                var theme = saved ? saved : (prefersDark ? "dark" : "light");
+                document.documentElement.setAttribute("data-theme", theme);
+            } catch (e) {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        })();
+    </script>
 </head>
 
 <body>
@@ -1485,9 +1643,15 @@
                 <h1>A|K</h1>
             </div>
 
-            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
-                <i class="fas fa-bars" id="menu-icon"></i>
-            </button>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+
+                <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+                    <i class="fas fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
 
             <div class="list-items" id="primary-nav">
                 <ul>
@@ -1504,16 +1668,17 @@
 
     <!-- Main section -->
     <main>
+
+        <br><br><br>
         <!-- first section -->
         <section class="home" id="home">
             <div class="first-section">
                 <div class="profile-details">
-                    <h3 style="color: #2EC4B6; font-size: 19px;">Hello, I'm</h3>
-                    <h1 style="color: 
-                    rgb(0, 110, 127); font-size: 80px; font-weight: 300; line-height: 80px;"><span id="typed-name" class="type-target" data-text="Aloisius Kasozi"></span></h1>
-                    <h5 style="color: #006E7F; font-weight: 400; font-size: 24px;"><span id="typed-role" class="type-target" data-phrases="Web Developer Based in Kampala, Uganda|Full Stack Developer Building End-to-End Solutions|Creative Coder Focused on Clean UI"></span></h5>
+                    <h3>Hello, I'm</h3>
+                    <h1><span id="typed-name" class="type-target" data-text="Aloisius Kasozi"></span></h1>
+                    <h5><span id="typed-role" class="type-target" data-phrases="Web Developer Based in Kampala, Uganda|Full Stack Developer Building End-to-End Solutions|Creative Coder Focused on Clean UI"></span></h5>
                     
-                    <p style="color: rgb(57, 54, 71); font-size: 18px; ">I design and build responsive, mobile-first websites using modern web technologies. I am passionate about creating clean, user-focused digital experiences.
+                    <p>I design and build responsive, mobile-first websites using modern web technologies. I am passionate about creating clean, user-focused digital experiences.
                     </p>
                   
                     <!-- Social Media Icons -->
@@ -1523,8 +1688,7 @@
                         <a href="https://www.instagram.com/aloisius_kasozi/" target="_blank" rel="noreferrer" class=""><i class="fa-brands fa-instagram"></i></a>
                         <a href="tel:+256704978132" title="tel:+256704978132" class=""><i class="fab fa-whatsapp"></i></a>
                     </div> 
-                    <button id="learn-more-btn" type="button"
-                        style=" font-size: 18px; line-height: 24px; color: white; background-color: #2EC4B6; border-radius: 50px; border: 1px solid #2EC4B6; padding: 10px; padding-left: 30px; padding-right: 30px;">Learn More</button>
+                    <button id="learn-more-btn" type="button">Learn More</button>
 
                     <!-- Stats strip -->
                     <div class="stats-strip" id="stats-strip">
@@ -1555,15 +1719,13 @@
                     <img src="about-me.png" alt="">
                 </div>
                 <div class="profile-details">
-                    <h3 style="color: #2EC4B6; font-size: 19px;">About Me</h3>
-                    <h2 style="color: 
-                    rgb(0, 110, 127); font-size: 48px; font-weight: 300; line-height: 53px;"><span id="typed-about-title" class="type-target" data-text="I Design and Develop High-Quality Web Experiences"></span></h2>
+                    <h3>About Me</h3>
+                    <h2><span id="typed-about-title" class="type-target" data-text="I Design and Develop High-Quality Web Experiences"></span></h2>
                     
-                    <p style="color: rgb(57, 54, 71); font-size: 18px; ">I am a web developer with five years of hands-on experience building responsive websites. From planning and collaboration to design and deployment, I focus on delivering solutions that are functional, fast, and visually engaging.
+                    <p>I am a web developer with five years of hands-on experience building responsive websites. From planning and collaboration to design and deployment, I focus on delivering solutions that are functional, fast, and visually engaging.
                     </p>
                     
-                    <button id="work-with-me-btn" type="button"
-                        style=" font-size: 18px; line-height: 24px; color: white; background-color: #2EC4B6; border-radius: 50px; border: 1px solid #2EC4B6; padding: 10px; padding-left: 30px; padding-right: 30px;">Work With Me</button>
+                    <button id="work-with-me-btn" type="button">Work With Me</button>
                 </div>
             </div>
         </section>
@@ -1571,9 +1733,9 @@
         <!-- Services Section -->
         <section class="services-section" id="services">
             <div class="heading">
-                <h3 style="color: #2EC4B6;">Services</h3>
-                <h2 style="color: rgb(0, 110, 127); font-size: 48px; line-height: 53px; font-weight: 300;">What I Can Do For You</h2>
-                <p style="font-size: 18px; line-height: 29px; font-weight: 400; color: rgb(57, 54, 71);">End-to-end web solutions — from design and development to launch and support.</p>
+                <h3>Services</h3>
+                <h2>What I Can Do For You</h2>
+                <p>End-to-end web solutions — from design and development to launch and support.</p>
             </div>
 
             <div id="services-grid">
@@ -1668,9 +1830,9 @@
         <!-- Skills Section -->
         <section class="skills-section" id="skills">
             <div class="heading">
-                <h3 style="color: #2EC4B6;">Skills</h3>
-                <h2 style="color: rgb(0, 110, 127); font-size: 48px; line-height: 53px; font-weight: 300;">Technologies I Work With</h2>
-                <p style="font-size: 18px; line-height: 29px; font-weight: 400; color: rgb(57, 54, 71);">A toolkit refined over five years of building for the modern web.</p>
+                <h3>Skills</h3>
+                <h2>Technologies I Work With</h2>
+                <p>A toolkit refined over five years of building for the modern web.</p>
             </div>
 
             <div class="skills-wrapper">
@@ -1788,10 +1950,9 @@
         <!-- Third Section -->
         <section class="portfolio" id="projects">
             <div class="heading">
-                <h3 style="color: #2EC4B6;">Portfolio</h3>
-                <h2 style="color: 
-                rgb(0, 110, 127); font-size: 48px; line-height: 53px; font-weight: 300;">My Amazing Work</h2>
-                <p style="font-size: 18px; line-height: 29px; font-weight: 400; color: rgb(57, 54, 71);">Explore a selection of projects that highlight my design and development approach.</p>
+                <h3>Portfolio</h3>
+                <h2>My Amazing Work</h2>
+                <p>Explore a selection of projects that highlight my design and development approach.</p>
             </div>
 
             <!-- project cards -->
@@ -2469,6 +2630,41 @@
                 if (window.innerWidth > 768) {
                     closeMenu();
                 }
+            });
+        }());
+
+        // ── Theme toggle ──
+        (function () {
+            var toggleBtn = document.getElementById("theme-toggle");
+            var themeIcon = document.getElementById("theme-icon");
+            if (!toggleBtn || !themeIcon) { return; }
+
+            function applyTheme(theme) {
+                document.documentElement.setAttribute("data-theme", theme);
+                if (theme === "dark") {
+                    themeIcon.classList.remove("fa-moon");
+                    themeIcon.classList.add("fa-sun");
+                    toggleBtn.setAttribute("aria-label", "Switch to light mode");
+                    toggleBtn.setAttribute("title", "Switch to light mode");
+                } else {
+                    themeIcon.classList.remove("fa-sun");
+                    themeIcon.classList.add("fa-moon");
+                    toggleBtn.setAttribute("aria-label", "Switch to dark mode");
+                    toggleBtn.setAttribute("title", "Switch to dark mode");
+                }
+            }
+
+            // Sync icon with whatever theme was applied on page load
+            var initialTheme = document.documentElement.getAttribute("data-theme") || "light";
+            applyTheme(initialTheme);
+
+            toggleBtn.addEventListener("click", function () {
+                var current = document.documentElement.getAttribute("data-theme") || "light";
+                var next = current === "dark" ? "light" : "dark";
+                applyTheme(next);
+                try {
+                    localStorage.setItem("theme", next);
+                } catch (e) { /* ignore storage errors */ }
             });
         }());
     </script>
