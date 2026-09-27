@@ -19,8 +19,8 @@
             --font-display: "Outfit", sans-serif;
             --color-heading: #0c5f6d;
             --color-text: #393647;
-            --color-accent: #F8CB2E;
-            --color-bg-soft: #fffdf5;
+            --color-accent: #2EC4B6;
+            --color-bg-soft: #f4fbfa;
             --measure: 65ch;
         }
 
@@ -91,7 +91,7 @@
 
 
         .logo {
-            color: #F8CB2E;
+            color: #2EC4B6;
             font-size: 32px;
             font-weight: 700;
             font-family: var(--font-display);
@@ -107,6 +107,27 @@
             padding: 1rem 1.25rem;
             max-width: 1100px;
             margin: 0 auto;
+            position: relative;
+        }
+
+        /* ── Hamburger menu button ── */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #006E7F;
+            font-size: 1.6rem;
+            padding: 0.4rem 0.7rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s ease, color 0.2s ease;
+            line-height: 1;
+            width: auto;
+        }
+
+        .menu-toggle:hover {
+            background: #f0f4f5;
+            color: #2EC4B6;
         }
 
         .list-items ul li a{
@@ -138,7 +159,7 @@
         }
 
         .list-items ul li:hover{
-            border-bottom: 1px solid #F8CB2E;
+            border-bottom: 1px solid #2EC4B6;
             font-size: larger;
         }
 
@@ -271,9 +292,9 @@
             font-size: 18px;
             line-height: 24px;
             color: white;
-            background-color: #F8CB2E;
+            background-color: #2EC4B6;
             border-radius: 50px;
-            border: 1px solid #F8CB2E;
+            border: 1px solid #2EC4B6;
             padding: 10px 30px;
             transition: all 0.35s ease;
             max-width: 100%;
@@ -313,7 +334,7 @@
         }
 
         .project-tile:hover{
-           border: 3px solid #F8CB2E;
+           border: 3px solid #2EC4B6;
            padding: 20px;
         }
 
@@ -366,7 +387,7 @@
             margin-left: auto;
             margin-right: auto;
 
-            font-size: 18px; line-height: 24px; color: white; background-color: #F8CB2E; border-radius: 50px; border: 1px solid #F8CB2E; padding: 10px; padding-left: 30px; padding-right: 30px;
+            font-size: 18px; line-height: 24px; color: white; background-color: #2EC4B6; border-radius: 50px; border: 1px solid #2EC4B6; padding: 10px; padding-left: 30px; padding-right: 30px;
             transition: all 0.5s ease;
         }
 
@@ -423,6 +444,46 @@
             transform: translateY(0);
         }
 
+        /* ── Floating WhatsApp button ── */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: #ffffff !important;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+            z-index: 990;
+            text-decoration: none;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            animation: waPulse 2.4s ease-in-out infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(-6deg);
+            background: #1ebe5d;
+            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-float i {
+            color: #ffffff;
+        }
+
+        @keyframes waPulse {
+            0%, 100% {
+                box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45), 0 0 0 0 rgba(37, 211, 102, 0.5);
+            }
+            50% {
+                box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45), 0 0 0 14px rgba(37, 211, 102, 0);
+            }
+        }
+
         @media (max-width: 1024px) {
             main {
                 width: min(100%, 100% - 2rem);
@@ -455,9 +516,67 @@
                 font-size: 28px;
             }
 
-            .list-items ul {
+            /* Show hamburger */
+            .menu-toggle {
+                display: flex;
+                align-items: center;
                 justify-content: center;
+            }
+
+            /* Convert nav into a slide-down panel */
+            nav {
+                justify-content: space-between;
+                padding: 0.9rem 1rem;
+            }
+
+            .list-items {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 12px 28px rgba(12, 95, 109, 0.14);
+                border-top: 1px solid rgba(0, 110, 127, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease, padding 0.3s ease;
+                padding: 0 1rem;
+            }
+
+            .list-items.open {
+                max-height: 420px;
+                padding: 0.8rem 1rem 1.2rem;
+            }
+
+            .list-items ul {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.2rem;
                 font-size: 16px;
+                justify-content: flex-start;
+            }
+
+            .list-items ul li {
+                width: 100%;
+                border-bottom: 1px solid rgba(0, 110, 127, 0.08);
+                padding: 0.75rem 0.4rem;
+            }
+
+            .list-items ul li:last-child {
+                border-bottom: none;
+            }
+
+            .list-items ul li:hover {
+                font-size: 16px;
+                border-bottom: 1px solid #2EC4B6;
+                padding-left: 0.8rem;
+            }
+
+            .list-items ul li a {
+                display: block;
+                width: 100%;
             }
 
             .first-section,
@@ -501,6 +620,14 @@
             .video-showcase-card {
                 padding: 1rem;
             }
+
+            .whatsapp-float {
+                width: 54px;
+                height: 54px;
+                font-size: 1.55rem;
+                bottom: 18px;
+                right: 18px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -537,6 +664,9 @@
                 opacity: 1;
                 transform: none;
                 transition: none;
+            }
+            .whatsapp-float {
+                animation: none;
             }
         }
 
@@ -631,11 +761,11 @@
 
         .modal-btn.email {
             background: var(--color-accent);
-            color: #1a1a2e;
+            color: #ffffff;
         }
 
         .modal-btn.email:hover {
-            background: #e6b800;
+            background: #25A99D;
         }
 
         .modal-close {
@@ -768,11 +898,11 @@
 
         .lightbox-btn.download {
             background: var(--color-accent);
-            color: #1a1a2e;
+            color: #ffffff;
         }
 
         .lightbox-btn.download:hover {
-            background: #e6b800;
+            background: #25A99D;
         }
 
         .lightbox-btn.close {
@@ -820,8 +950,8 @@
         }
 
         .gallery-nav:hover {
-            background: #F8CB2E;
-            color: #1a1a2e;
+            background: #2EC4B6;
+            color: #ffffff;
             transform: scale(1.1);
         }
 
@@ -849,7 +979,7 @@
         }
 
         .gallery-thumb.active {
-            border-color: #006E7F;
+            border-color: #2EC4B6;
             opacity: 1;
         }
 
@@ -877,7 +1007,7 @@
             content: "✓";
             position: absolute;
             left: 0;
-            color: #006E7F;
+            color: #2EC4B6;
             font-weight: 700;
         }
 
@@ -964,7 +1094,12 @@
             <div class="logo">
                 <h1>A|K</h1>
             </div>
-            <div class="list-items">
+
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </button>
+
+            <div class="list-items" id="primary-nav">
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
@@ -981,7 +1116,7 @@
         <section class="home" id="home">
             <div class="first-section">
                 <div class="profile-details">
-                    <h3 style="color: rgb(248, 203, 46); font-size: 19px;">Hello, I'm</h3>
+                    <h3 style="color: #2EC4B6; font-size: 19px;">Hello, I'm</h3>
                     <h1 style="color: 
                     rgb(0, 110, 127); font-size: 80px; font-weight: 300; line-height: 80px;"><span id="typed-name" class="type-target" data-text="Aloisius Kasozi"></span></h1>
                     <h5 style="color: #006E7F; font-weight: 400; font-size: 24px;"><span id="typed-role" class="type-target" data-phrases="Web Developer Based in Kampala, Uganda|Full Stack Developer Building End-to-End Solutions|Creative Coder Focused on Clean UI"></span></h5>
@@ -997,10 +1132,10 @@
                         <a href="tel:+256704978132" title="tel:+256704978132" class=""><i class="fab fa-whatsapp"></i></a>
                     </div> 
                     <button id="learn-more-btn" type="button"
-                        style=" font-size: 18px; line-height: 24px; color: white; background-color: #F8CB2E; border-radius: 50px; border: 1px solid #F8CB2E; padding: 10px; padding-left: 30px; padding-right: 30px;">Learn More</button>
+                        style=" font-size: 18px; line-height: 24px; color: white; background-color: #2EC4B6; border-radius: 50px; border: 1px solid #2EC4B6; padding: 10px; padding-left: 30px; padding-right: 30px;">Learn More</button>
                 </div>
                 <div class="main-image">
-                    <img src="mypersonalmage.jpeg" alt="aloisius Kasozi image">
+                    <img src="aloisius.jpeg" alt="aloisius Kasozi image">
                 </div>
             </div>
         </section>
@@ -1012,7 +1147,7 @@
                     <img src="about-me.png" alt="">
                 </div>
                 <div class="profile-details">
-                    <h3 style="color: rgb(248, 203, 46); font-size: 19px;">About Me</h3>
+                    <h3 style="color: #2EC4B6; font-size: 19px;">About Me</h3>
                     <h2 style="color: 
                     rgb(0, 110, 127); font-size: 48px; font-weight: 300; line-height: 53px;"><span id="typed-about-title" class="type-target" data-text="I Design and Develop High-Quality Web Experiences"></span></h2>
                     
@@ -1020,7 +1155,7 @@
                     </p>
                     
                     <button id="work-with-me-btn" type="button"
-                        style=" font-size: 18px; line-height: 24px; color: white; background-color: #F8CB2E; border-radius: 50px; border: 1px solid #F8CB2E; padding: 10px; padding-left: 30px; padding-right: 30px;">Work With Me</button>
+                        style=" font-size: 18px; line-height: 24px; color: white; background-color: #2EC4B6; border-radius: 50px; border: 1px solid #2EC4B6; padding: 10px; padding-left: 30px; padding-right: 30px;">Work With Me</button>
                 </div>
             </div>
         </section>
@@ -1028,7 +1163,7 @@
         <!-- Third Section -->
         <section class="portfolio">
             <div class="heading">
-                <h3 style="color: #F8CB2E;">Portfolio</h3>
+                <h3 style="color: #2EC4B6;">Portfolio</h3>
                 <h2 style="color: 
                 rgb(0, 110, 127); font-size: 48px; line-height: 53px; font-weight: 300;">My Amazing Work</h2>
                 <p style="font-size: 18px; line-height: 29px; font-weight: 400; color: rgb(57, 54, 71);">Explore a selection of projects that highlight my design and development approach.</p>
@@ -1064,7 +1199,7 @@
 
         <section class="video-showcase" id="video-showcase">
             <div class="heading">
-                <h3 style="color: #F8CB2E;">Featured Demo</h3>
+                <h3 style="color: #2EC4B6;">Featured Demo</h3>
                 <h2 style="color: rgb(0, 110, 127); font-size: 42px; line-height: 48px; font-weight: 300;">Project Walkthrough Video</h2>
                 <p style="font-size: 18px; line-height: 29px; font-weight: 400; color: rgb(57, 54, 71);">A quick walkthrough showing part of my work in action.</p>
             </div>
@@ -1249,6 +1384,11 @@
 
 
     </main>
+
+    <!-- Floating WhatsApp button -->
+    <a class="whatsapp-float" href="https://wa.me/256767267209" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -1619,6 +1759,70 @@
             document.addEventListener("keydown", function (e) {
                 if (e.key === "Escape" && overlay.classList.contains("open")) {
                     closeModal();
+                }
+            });
+        }());
+
+        // Mobile menu toggle
+        (function () {
+            var toggle = document.getElementById("menu-toggle");
+            var menu = document.getElementById("primary-nav");
+            var icon = document.getElementById("menu-icon");
+            var links = menu ? menu.querySelectorAll("a") : [];
+
+            if (!toggle || !menu) { return; }
+
+            function closeMenu() {
+                menu.classList.remove("open");
+                toggle.setAttribute("aria-expanded", "false");
+                if (icon) {
+                    icon.classList.remove("fa-xmark");
+                    icon.classList.add("fa-bars");
+                }
+            }
+
+            function openMenu() {
+                menu.classList.add("open");
+                toggle.setAttribute("aria-expanded", "true");
+                if (icon) {
+                    icon.classList.remove("fa-bars");
+                    icon.classList.add("fa-xmark");
+                }
+            }
+
+            toggle.addEventListener("click", function (e) {
+                e.stopPropagation();
+                if (menu.classList.contains("open")) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+
+            // Close when a link is clicked
+            links.forEach(function (link) {
+                link.addEventListener("click", closeMenu);
+            });
+
+            // Close on outside click
+            document.addEventListener("click", function (e) {
+                if (!menu.classList.contains("open")) { return; }
+                if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                    closeMenu();
+                }
+            });
+
+            // Close on Escape
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape" && menu.classList.contains("open")) {
+                    closeMenu();
+                }
+            });
+
+            // Reset state on resize to desktop
+            window.addEventListener("resize", function () {
+                if (window.innerWidth > 768) {
+                    closeMenu();
                 }
             });
         }());
