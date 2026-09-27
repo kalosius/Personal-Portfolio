@@ -10,8 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <meta name="description" content="Hi, My name is Aloisius - Web Developer">
     <link rel="shortcut icon" href="A (1).png" type="image/x-icon">
-    
-    
+
     <title>A|K Aloisius Kasozi</title>
     <style>
         :root {
@@ -50,6 +49,7 @@
             --color-body: rgb(57, 54, 71);
             --color-about-title: rgb(0, 110, 127);
             --measure: 65ch;
+            --perspective: 1400px;
         }
 
         /* ── Dark theme ── */
@@ -108,7 +108,48 @@
             -webkit-font-smoothing: antialiased;
             padding-top: 88px;
             transition: background 0.4s ease, color 0.4s ease;
+            perspective: var(--perspective);
         }
+
+        /* Ambient parallax blobs (TikTok-like depth) */
+        .ambient-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ambient-bg span {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.35;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.3, 1), opacity 0.4s ease;
+        }
+
+        .ambient-bg span:nth-child(1) {
+            width: 340px; height: 340px;
+            background: #2EC4B6;
+            top: 8%; left: -6%;
+            opacity: 0.22;
+        }
+        .ambient-bg span:nth-child(2) {
+            width: 280px; height: 280px;
+            background: #006E7F;
+            top: 45%; right: -5%;
+            opacity: 0.18;
+        }
+        .ambient-bg span:nth-child(3) {
+            width: 260px; height: 260px;
+            background: #2EC4B6;
+            top: 78%; left: 40%;
+            opacity: 0.15;
+        }
+
+        html[data-theme="dark"] .ambient-bg span:nth-child(1) { opacity: 0.3; }
+        html[data-theme="dark"] .ambient-bg span:nth-child(2) { opacity: 0.28; }
+        html[data-theme="dark"] .ambient-bg span:nth-child(3) { opacity: 0.22; }
 
         img {
             max-width: 100%;
@@ -132,8 +173,11 @@
 
         section {
             scroll-margin-top: 110px;
+            position: relative;
+            z-index: 1;
         }
 
+        /* ── Header / Nav (fully restored & isolated) ── */
         header {
             position: fixed;
             top: 0;
@@ -144,6 +188,7 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             transition: transform 0.18s ease, box-shadow 0.22s ease, background 0.4s ease;
+            isolation: isolate;
         }
 
         header.nav-hidden {
@@ -153,7 +198,6 @@
         header.nav-scrolled {
             box-shadow: 0 10px 26px rgba(12, 95, 109, 0.14);
         }
-
 
         .logo {
             color: #2EC4B6;
@@ -173,6 +217,7 @@
             max-width: 1100px;
             margin: 0 auto;
             position: relative;
+            z-index: 960;
         }
 
         /* ── Theme toggle button ── */
@@ -215,6 +260,7 @@
             display: flex;
             align-items: center;
             gap: 0.6rem;
+            z-index: 2;
         }
 
         /* ── Hamburger menu button ── */
@@ -241,6 +287,10 @@
             color: #2EC4B6;
         }
 
+        .list-items {
+            z-index: 2;
+        }
+
         .list-items ul li a{
             transition: all 0.5s ease;
         }
@@ -254,11 +304,10 @@
             font-size: 17px;
             gap: 0.8rem;
             flex-wrap: wrap;
-   
         }
+
         .list-items ul li{
             transition: all 0.5s ease;
-            
         }
 
         .list-items ul li a{
@@ -267,6 +316,8 @@
             font-family: var(--font-display);
             font-weight: 500;
             letter-spacing: 0.02em;
+            display: inline-block;
+            padding: 0.15rem 0.1rem;
         }
 
         .list-items ul li:hover{
@@ -282,6 +333,8 @@
             width: min(1100px, 100% - 3rem);
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+            z-index: 1;
         }
 
         .first-section {
@@ -306,6 +359,7 @@
 
         .profile-details {
             flex: 1 1 320px;
+            transform-style: preserve-3d;
         }
 
         .profile-details p {
@@ -372,12 +426,21 @@
             flex: 1 1 300px;
             display: flex;
             justify-content: center;
+            transform-style: preserve-3d;
         }
 
         .main-image img,
         .image img {
             width: min(100%, 420px);
             border-radius: 20px;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1), box-shadow 0.5s ease;
+            box-shadow: 0 20px 60px var(--color-shadow-strong);
+        }
+
+        .main-image img:hover,
+        .image img:hover {
+            transform: translateY(-6px) rotateY(-6deg) rotateX(3deg) scale(1.02);
+            box-shadow: 0 30px 80px var(--color-shadow-strong);
         }
 
         .social {
@@ -538,6 +601,7 @@
             border-radius: 12px;
             background: var(--color-card);
             box-shadow: 0 10px 28px var(--color-shadow);
+            transform-style: preserve-3d;
         }
 
         .project-img {
@@ -549,13 +613,14 @@
         .project-tile:hover{
            border: 3px solid #2EC4B6;
            padding: 20px;
+           transform: translateY(-8px) rotateX(3deg) rotateY(-3deg);
+           box-shadow: 0 26px 56px var(--color-shadow-strong);
         }
 
         #projects-grid{
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 1.2rem;
-           
         }
 
         .project-tile p {
@@ -576,12 +641,16 @@
             color: var(--color-accent-strong);
         }
 
-        /* ── Services section (professional image cards) ── */
+        /* ── Services section (3D horizontal reel) ── */
         #services-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 1.4rem;
             margin-top: 0.5rem;
+        }
+
+        .services-reel-wrap {
+            position: relative;
         }
 
         .service-card {
@@ -594,12 +663,15 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(0);
+            will-change: transform;
         }
 
         .service-card:hover {
-            transform: translateY(-6px);
+            transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(24px);
             border-color: #2EC4B6;
-            box-shadow: 0 20px 46px var(--color-shadow-strong);
+            box-shadow: 0 26px 56px var(--color-shadow-strong);
         }
 
         .service-media {
@@ -608,6 +680,7 @@
             aspect-ratio: 16 / 10;
             overflow: hidden;
             background: #0d2f36;
+            transform: translateZ(20px);
         }
 
         .service-media img {
@@ -619,7 +692,7 @@
         }
 
         .service-card:hover .service-media img {
-            transform: scale(1.08);
+            transform: scale(1.1) translateZ(10px);
         }
 
         .service-media::after {
@@ -645,6 +718,7 @@
             font-size: 1.05rem;
             z-index: 1;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            transform: translateZ(40px);
         }
 
         .service-body {
@@ -652,6 +726,7 @@
             display: flex;
             flex-direction: column;
             flex: 1;
+            transform: translateZ(10px);
         }
 
         .service-body h3 {
@@ -688,7 +763,7 @@
             border-radius: 20px;
         }
 
-        /* ── Skills section (redesigned tiles) ── */
+        /* ── Skills section (3D flip tiles) ── */
         .skills-wrapper {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -705,6 +780,7 @@
             position: relative;
             overflow: hidden;
             transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.4s ease;
+            transform-style: preserve-3d;
         }
 
         .skill-group::before {
@@ -718,7 +794,7 @@
         }
 
         .skill-group:hover {
-            transform: translateY(-4px);
+            transform: translateY(-4px) rotateX(2deg);
             border-color: #2EC4B6;
             box-shadow: 0 18px 42px var(--color-shadow-strong);
         }
@@ -795,13 +871,14 @@
             justify-content: center;
             gap: 0.45rem;
             text-align: center;
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.3, 1),
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.3, 1),
                         background 0.3s ease,
                         border-color 0.3s ease,
                         box-shadow 0.3s ease;
             cursor: default;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .skill-tile::after {
@@ -816,10 +893,10 @@
         }
 
         .skill-tile:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px) rotateX(-8deg) rotateY(6deg) translateZ(18px);
             background: var(--color-card);
             border-color: rgba(46, 196, 182, 0.5);
-            box-shadow: 0 12px 26px var(--color-shadow);
+            box-shadow: 0 16px 30px var(--color-shadow-strong);
         }
 
         .skill-tile:hover::after {
@@ -844,7 +921,7 @@
             background: #2EC4B6;
             color: #ffffff;
             border-color: #2EC4B6;
-            transform: scale(1.08);
+            transform: scale(1.12) translateZ(10px);
         }
 
         .skill-tile-label {
@@ -856,7 +933,6 @@
         }
 
         /* Contactsection four */
-        
         .contact{
             text-align: center;
             margin-top: 6rem;
@@ -939,19 +1015,33 @@
             font-size: 0.97rem;
         }
 
+        /* ── 3D scroll reveal (TikTok-style) ── */
         .reveal {
             opacity: 0;
-            transform: translateY(26px);
-            transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.25, 1, 0.3, 1);
+            transform: perspective(1200px) translateY(60px) translateZ(-160px) rotateX(14deg);
+            transition: opacity 0.9s ease, transform 1s cubic-bezier(0.22, 1, 0.3, 1);
             will-change: opacity, transform;
         }
 
         .reveal.in-view {
             opacity: 1;
-            transform: translateY(0);
+            transform: perspective(1200px) translateY(0) translateZ(0) rotateX(0deg);
         }
 
-        /* ── Floating WhatsApp button ── */
+        /* Cards with special 3D entrance */
+        .service-card.reveal,
+        .project-tile.reveal,
+        .skill-group.reveal {
+            transform: perspective(1200px) translateY(70px) translateZ(-200px) rotateX(18deg) rotateY(-6deg);
+        }
+
+        .service-card.reveal.in-view,
+        .project-tile.reveal.in-view,
+        .skill-group.reveal.in-view {
+            transform: perspective(1200px) translateY(0) translateZ(0) rotateX(0deg) rotateY(0deg);
+        }
+
+        /* Floating WhatsApp button */
         .whatsapp-float {
             position: fixed;
             bottom: 24px;
@@ -1247,7 +1337,13 @@
 
         @media (prefers-reduced-motion: reduce) {
             .reveal,
-            .reveal.in-view {
+            .reveal.in-view,
+            .service-card.reveal,
+            .service-card.reveal.in-view,
+            .project-tile.reveal,
+            .project-tile.reveal.in-view,
+            .skill-group.reveal,
+            .skill-group.reveal.in-view {
                 opacity: 1;
                 transform: none;
                 transition: none;
@@ -1617,10 +1713,22 @@
             text-decoration: underline;
         }
 
+        /* ── Scroll progress bar (TikTok-like) ── */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #2EC4B6, #7DE3D8);
+            z-index: 999;
+            transition: width 0.08s linear;
+            box-shadow: 0 0 12px rgba(46, 196, 182, 0.6);
+        }
 
     </style>
 
-    <!-- Set theme before paint to avoid flash of wrong theme -->
+    <!-- Set theme before paint -->
     <script>
         (function () {
             try {
@@ -1636,6 +1744,14 @@
 </head>
 
 <body>
+    <!-- Ambient parallax blobs -->
+    <div class="ambient-bg" aria-hidden="true">
+        <span></span><span></span><span></span>
+    </div>
+
+    <!-- Scroll progress bar -->
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
     <!-- Header section -->
     <header>
         <nav>
@@ -1677,17 +1793,17 @@
                     <h3>Hello, I'm</h3>
                     <h1><span id="typed-name" class="type-target" data-text="Aloisius Kasozi"></span></h1>
                     <h5><span id="typed-role" class="type-target" data-phrases="Web Developer Based in Kampala, Uganda|Full Stack Developer Building End-to-End Solutions|Creative Coder Focused on Clean UI"></span></h5>
-                    
+
                     <p>I design and build responsive, mobile-first websites using modern web technologies. I am passionate about creating clean, user-focused digital experiences.
                     </p>
-                  
+
                     <!-- Social Media Icons -->
                     <div class="social">
                         <a href="https://github.com/kalosius" target="_blank" rel="noreferrer" class=""><i class="fab fa-github"></i></a>
                         <a href="https://www.linkedin.com/in/aloisius-kasozi-558328268" target="_blank" rel="noreferrer" class=""><i class="fab fa-linkedin-in"></i></a>
                         <a href="https://www.instagram.com/aloisius_kasozi/" target="_blank" rel="noreferrer" class=""><i class="fa-brands fa-instagram"></i></a>
                         <a href="tel:+256704978132" title="tel:+256704978132" class=""><i class="fab fa-whatsapp"></i></a>
-                    </div> 
+                    </div>
                     <button id="learn-more-btn" type="button">Learn More</button>
 
                     <!-- Stats strip -->
@@ -1721,10 +1837,10 @@
                 <div class="profile-details">
                     <h3>About Me</h3>
                     <h2><span id="typed-about-title" class="type-target" data-text="I Design and Develop High-Quality Web Experiences"></span></h2>
-                    
+
                     <p>I am a web developer with five years of hands-on experience building responsive websites. From planning and collaboration to design and deployment, I focus on delivering solutions that are functional, fast, and visually engaging.
                     </p>
-                    
+
                     <button id="work-with-me-btn" type="button">Work With Me</button>
                 </div>
             </div>
@@ -1739,7 +1855,7 @@
             </div>
 
             <div id="services-grid">
-                <div class="service-card">
+                <div class="service-card" data-tilt>
                     <div class="service-media">
                         <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=900&q=80" alt="Web development workspace">
                         <div class="service-badge"><i class="fas fa-laptop-code"></i></div>
@@ -1753,7 +1869,7 @@
                     </div>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" data-tilt>
                     <div class="service-media">
                         <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=900&q=80" alt="Full-stack development code">
                         <div class="service-badge"><i class="fas fa-layer-group"></i></div>
@@ -1767,7 +1883,7 @@
                     </div>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" data-tilt>
                     <div class="service-media">
                         <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=900&q=80" alt="Responsive design across devices">
                         <div class="service-badge"><i class="fas fa-mobile-screen-button"></i></div>
@@ -1781,7 +1897,7 @@
                     </div>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" data-tilt>
                     <div class="service-media">
                         <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80" alt="E-commerce shopping">
                         <div class="service-badge"><i class="fas fa-cart-shopping"></i></div>
@@ -1795,7 +1911,7 @@
                     </div>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" data-tilt>
                     <div class="service-media">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80" alt="Performance analytics">
                         <div class="service-badge"><i class="fas fa-gauge-high"></i></div>
@@ -1809,7 +1925,7 @@
                     </div>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" data-tilt>
                     <div class="service-media">
                         <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80" alt="Developer maintenance and support">
                         <div class="service-badge"><i class="fas fa-screwdriver-wrench"></i></div>
@@ -1958,7 +2074,7 @@
             <!-- project cards -->
             <div id="projects-grid">
                 <!-- project one -->
-                <div class="project-tile">
+                <div class="project-tile" data-tilt>
                     <div><img class="project-img" src="images%20of%20portffolio/kampalaparents/image.png" alt="Kampala Parents School System"></div>
                     <h3>Kampala Parents School System</h3>
                     <p>A school management platform built to improve communication, student record handling, and day-to-day academic administration for parents, teachers, and school staff.</p>
@@ -1966,7 +2082,7 @@
                 </div>
 
                 <!-- project Two -->
-                <div class="project-tile">
+                <div class="project-tile" data-tilt>
                     <div><img class="project-img" src="images%20of%20portffolio/sms/image.png" alt="Geniewep SMS"></div>
                     <h3>Geniewep SMS</h3>
                     <p>An SMS communication solution designed to help organizations send alerts, updates, and announcements efficiently with reliable delivery and a simple management interface.</p>
@@ -1974,7 +2090,7 @@
                 </div>
 
                 <!-- project Three -->
-                <div class="project-tile">
+                <div class="project-tile" data-tilt>
                     <div><img class="project-img" src="images%20of%20portffolio/ecommerce/image.png" alt="E-commerce Platform"></div>
                     <h3>E-commerce Platform</h3>
                     <p>A modern online shopping application featuring product browsing, cart and checkout workflows, and responsive user interfaces focused on performance and usability.</p>
@@ -2133,7 +2249,6 @@
                     <button class="modal-btn email" id="email-modal-btn" type="button">
                         <i class="fas fa-envelope" style="font-size:1.1rem;"></i> Email
                     </button>
-                    <!-- hidden mailto anchor, triggered by JS click -->
                     <a id="mailto-trigger" href="mailto:aloisiuskasozi@gmail.com" style="display:none;" aria-hidden="true"></a>
                 </div>
                 <p class="modal-email-hint">aloisiuskasozi@gmail.com</p>
@@ -2159,7 +2274,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var revealTargets = Array.from(document.querySelectorAll(
-                ".first-section .profile-details, .main-image, .second-section .image, .second-section .profile-details, .heading, .stats-strip, .service-card, .skill-group, .project-tile, .contact, #footer-section p, #footer-section span"
+                ".first-section .profile-details, .main-image, .second-section .image, .second-section .profile-details, .heading, .stats-strip, .service-card, .skill-group, .skill-tile, .project-tile, .contact, #footer-section p, #footer-section span"
             ));
 
             revealTargets.forEach(function (element, index) {
@@ -2180,7 +2295,7 @@
                         }
                     });
                 }, {
-                    threshold: 0.18,
+                    threshold: 0.15,
                     rootMargin: "0px 0px -8% 0px"
                 });
 
@@ -2188,6 +2303,86 @@
                     observer.observe(element);
                 });
             }
+
+            // ── Scroll progress bar ──
+            (function () {
+                var bar = document.getElementById("scroll-progress");
+                if (!bar) { return; }
+                function update() {
+                    var doc = document.documentElement;
+                    var scrolled = doc.scrollTop || document.body.scrollTop;
+                    var height = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
+                    var pct = height > 0 ? (scrolled / height) * 100 : 0;
+                    bar.style.width = pct + "%";
+                }
+                window.addEventListener("scroll", update, { passive: true });
+                window.addEventListener("resize", update);
+                update();
+            }());
+
+            // ── Ambient parallax on scroll ──
+            (function () {
+                var blobs = document.querySelectorAll(".ambient-bg span");
+                if (!blobs.length) { return; }
+                var ticking = false;
+                window.addEventListener("scroll", function () {
+                    if (ticking) { return; }
+                    ticking = true;
+                    requestAnimationFrame(function () {
+                        var y = window.scrollY || 0;
+                        blobs.forEach(function (b, i) {
+                            var speed = (i + 1) * 0.06;
+                            var xDrift = Math.sin(y * 0.002 + i) * 40;
+                            b.style.transform = "translate3d(" + xDrift + "px," + (-y * speed) + "px,0)";
+                        });
+                        ticking = false;
+                    });
+                }, { passive: true });
+            }());
+
+            // ── 3D tilt on cards (mouse-driven, TikTok feel) ──
+            (function () {
+                var tiltCards = document.querySelectorAll("[data-tilt]");
+                if (!tiltCards.length) { return; }
+
+                var isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+                if (isTouch) { return; }
+
+                tiltCards.forEach(function (card) {
+                    card.addEventListener("mousemove", function (e) {
+                        var rect = card.getBoundingClientRect();
+                        var x = (e.clientX - rect.left) / rect.width - 0.5;
+                        var y = (e.clientY - rect.top) / rect.height - 0.5;
+                        var rx = (-y * 10).toFixed(2);
+                        var ry = (x * 12).toFixed(2);
+                        card.style.setProperty("--rx", rx + "deg");
+                        card.style.setProperty("--ry", ry + "deg");
+                        card.style.transform = "perspective(1000px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateZ(20px)";
+                    });
+
+                    card.addEventListener("mouseleave", function () {
+                        card.style.setProperty("--rx", "0deg");
+                        card.style.setProperty("--ry", "0deg");
+                        card.style.transform = "";
+                    });
+                });
+            }());
+
+            // ── Scroll-driven zoom on hero photo ──
+            (function () {
+                var heroImg = document.querySelector(".main-image img");
+                if (!heroImg) { return; }
+                window.addEventListener("scroll", function () {
+                    var y = window.scrollY || 0;
+                    var scale = 1 - Math.min(y / 4000, 0.06);
+                    var translateY = Math.min(y * 0.03, 20);
+                    if (y < 600) {
+                        heroImg.style.transform = "translateY(" + translateY + "px) scale(" + scale + ")";
+                    } else {
+                        heroImg.style.transform = "";
+                    }
+                }, { passive: true });
+            }());
 
             function typeText(el, text, speed) {
                 return new Promise(function (resolve) {
@@ -2326,7 +2521,6 @@
                     function step(timestamp) {
                         if (!startTime) { startTime = timestamp; }
                         var progress = Math.min((timestamp - startTime) / duration, 1);
-                        // easeOutCubic
                         var eased = 1 - Math.pow(1 - progress, 3);
                         el.textContent = Math.floor(eased * target);
                         if (progress < 1) {
@@ -2654,7 +2848,6 @@
                 }
             }
 
-            // Sync icon with whatever theme was applied on page load
             var initialTheme = document.documentElement.getAttribute("data-theme") || "light";
             applyTheme(initialTheme);
 
@@ -2664,7 +2857,7 @@
                 applyTheme(next);
                 try {
                     localStorage.setItem("theme", next);
-                } catch (e) { /* ignore storage errors */ }
+                } catch (e) { /* ignore */ }
             });
         }());
     </script>
